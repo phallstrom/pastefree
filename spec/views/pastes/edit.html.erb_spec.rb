@@ -24,10 +24,10 @@ describe "/pastes/edit.html.erb" do
       with_tag('input#paste_theme[name=?]', "paste[theme]")
       with_tag('input#paste_syntax[name=?]', "paste[syntax]")
       with_tag('input#paste_file_path[name=?]', "paste[file_path]")
-      with_tag('input#paste_file_type[name=?]', "paste[file_type]")
+      without_tag('input#paste_file_type[name=?]', "paste[file_type]")
       with_tag('input#paste_is_private[name=?]', "paste[is_private]")
-      with_tag('input#paste_user_ip[name=?]', "paste[user_ip]")
-      with_tag('input#paste_user_agent[name=?]', "paste[user_agent]")
+      without_tag('input#paste_user_ip[name=?]', "paste[user_ip]")
+      without_tag('input#paste_user_agent[name=?]', "paste[user_agent]")
     end
   end
 end
