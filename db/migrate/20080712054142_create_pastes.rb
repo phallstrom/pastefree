@@ -2,12 +2,12 @@ class CreatePastes < ActiveRecord::Migration
   def self.up
     create_table :pastes do |t|
       t.text :content
-      t.string :theme
-      t.string :syntax
+      t.string :theme, :length => 32
+      t.string :syntax, :length => 32
       t.string :file_path
-      t.string :file_type
-      t.boolean :is_private
-      t.string :user_ip
+      t.string :file_type, :length => 64
+      t.boolean :is_private, :default => false
+      t.string :user_ip, :length => 15
       t.string :user_agent
 
       t.timestamps
