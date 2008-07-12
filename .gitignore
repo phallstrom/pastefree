@@ -5,3 +5,5 @@ doc/app
 doc/plugins
 *.DS_Store
 *.swp
+db/*.sqlite*
+db/schema.rb
