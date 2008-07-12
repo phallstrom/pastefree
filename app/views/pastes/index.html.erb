@@ -1,0 +1,34 @@
+<h1>Listing pastes</h1>
+
+<table>
+  <tr>
+    <th>Content</th>
+    <th>Theme</th>
+    <th>Syntax</th>
+    <th>File path</th>
+    <th>File type</th>
+    <th>Is private</th>
+    <th>User ip</th>
+    <th>User agent</th>
+  </tr>
+
+<% for paste in @pastes %>
+  <tr>
+    <td><%=h paste.content %></td>
+    <td><%=h paste.theme %></td>
+    <td><%=h paste.syntax %></td>
+    <td><%=h paste.file_path %></td>
+    <td><%=h paste.file_type %></td>
+    <td><%=h paste.is_private %></td>
+    <td><%=h paste.user_ip %></td>
+    <td><%=h paste.user_agent %></td>
+    <td><%= link_to 'Show', paste %></td>
+    <td><%= link_to 'Edit', edit_paste_path(paste) %></td>
+    <td><%= link_to 'Destroy', paste, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New paste', new_paste_path %>

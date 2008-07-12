@@ -1,0 +1,43 @@
+<p>
+  <b>Content:</b>
+  <%=h @paste.content %>
+</p>
+
+<p>
+  <b>Theme:</b>
+  <%=h @paste.theme %>
+</p>
+
+<p>
+  <b>Syntax:</b>
+  <%=h @paste.syntax %>
+</p>
+
+<p>
+  <b>File path:</b>
+  <%=h @paste.file_path %>
+</p>
+
+<p>
+  <b>File type:</b>
+  <%=h @paste.file_type %>
+</p>
+
+<p>
+  <b>Is private:</b>
+  <%=h @paste.is_private %>
+</p>
+
+<p>
+  <b>User ip:</b>
+  <%=h @paste.user_ip %>
+</p>
+
+<p>
+  <b>User agent:</b>
+  <%=h @paste.user_agent %>
+</p>
+
+
+<%= link_to 'Edit', edit_paste_path(@paste) %> |
+<%= link_to 'Back', pastes_path %>
