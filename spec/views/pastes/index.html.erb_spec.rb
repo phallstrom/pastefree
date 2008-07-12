@@ -33,7 +33,7 @@ describe "/pastes/index.html.erb" do
     response.should have_tag("tr>td", "MyString", 2)
     response.should have_tag("tr>td", "MyString", 2)
     response.should have_tag("tr>td", "MyString", 2)
-    response.should have_tag("tr>td", false, 2)
+    response.should have_tag("tr>td", "false", 2)
     response.should have_tag("tr>td", "MyString", 2)
     response.should have_tag("tr>td", "MyString", 2)
   end
