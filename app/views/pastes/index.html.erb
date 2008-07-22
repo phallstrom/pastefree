@@ -13,8 +13,8 @@
 <% for paste in @pastes %>
   <tr>
     <td><%=h paste.content %></td>
-    <td><%=h paste.theme %></td>
-    <td><%=h paste.syntax %></td>
+    <td><%=h paste.theme.name rescue ''%></td>
+    <td><%=h paste.syntax.name rescue '' %></td>
     <td><%=h paste.file_path %></td>
     <td><%=h paste.file_type %></td>
     <td><%=h paste.is_private %></td>

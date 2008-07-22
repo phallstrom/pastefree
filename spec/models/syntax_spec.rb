@@ -52,12 +52,12 @@ describe Syntax do
   it "should increment the paste_count" do
     @syntax.save
 
-    Paste.create(:syntax => @syntax, :content => 'Testing 1', :user_ip => '127.0.0.1', :user_agent => 'RSpec Browser')
+    Paste.create(:syntax => @syntax, :content => 'Testing 1')
     Paste.count.should == 1
     @syntax.reload
     @syntax.paste_count.should == 1
 
-    Paste.create(:syntax => @syntax, :content => 'Testing 2', :user_ip => '127.0.0.1', :user_agent => 'RSpec Browser')
+    Paste.create(:syntax => @syntax, :content => 'Testing 2')
     Paste.count.should == 2
     @syntax.reload
     @syntax.paste_count.should == 2

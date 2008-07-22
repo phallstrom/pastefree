@@ -1,9 +1,6 @@
 class Paste < ActiveRecord::Base
 
   validates_presence_of :file_type, :unless => Proc.new {|p| p.file_path.blank?}
-  validates_presence_of :user_ip
-  validates_format_of :user_ip, :with => /\A\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3}\Z/
-  validates_presence_of :user_agent
 
   belongs_to :user
   belongs_to :syntax

@@ -8,12 +8,12 @@
     <%= f.text_area :content %>
   </p>
   <p>
-    <%= f.label :theme %><br />
-    <%= f.select :theme, Theme.options_for_select, :include_blank => :true %>
+    <%= f.label :theme_id %><br />
+    <%= f.select :theme_id, Theme.options_for_select, :include_blank => :true %>
   </p>
   <p>
-    <%= f.label :syntax %><br />
-    <%= f.select :syntax, Syntax.options_for_select, :include_blank => :true  %>
+    <%= f.label :syntax_id %><br />
+    <%= f.select :syntax_id, Syntax.options_for_select, :include_blank => :true  %>
   </p>
   <p>
     <%= f.label :file_path %><br />

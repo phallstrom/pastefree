@@ -52,12 +52,12 @@ describe Theme do
   it "should increment the paste_count" do
     @theme.save
 
-    Paste.create(:theme => @theme, :content => 'Testing 1', :user_ip => '127.0.0.1', :user_agent => 'RSpec Browser')
+    Paste.create(:theme => @theme, :content => 'Testing 1')
     Paste.count.should == 1
     @theme.reload
     @theme.paste_count.should == 1
 
-    Paste.create(:theme => @theme, :content => 'Testing 2', :user_ip => '127.0.0.1', :user_agent => 'RSpec Browser')
+    Paste.create(:theme => @theme, :content => 'Testing 2')
     Paste.count.should == 2
     @theme.reload
     @theme.paste_count.should == 2

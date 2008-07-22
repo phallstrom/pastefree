@@ -5,12 +5,12 @@
 
 <p>
   <b>Theme:</b>
-  <%=h @paste.theme %>
+  <%=h @paste.theme.name rescue '' %>
 </p>
 
 <p>
   <b>Syntax:</b>
-  <%=h @paste.syntax %>
+  <%=h @paste.syntax.name rescue ''%>
 </p>
 
 <p>

@@ -36,12 +36,12 @@ describe User do
   it "should increment the paste_count" do
     @user.save
 
-    @user.pastes.create(:content => 'Testing 1', :user_ip => '127.0.0.1', :user_agent => 'RSpec Browser')
+    @user.pastes.create(:content => 'Testing 1')
     Paste.count.should == 1
     @user.reload
     @user.paste_count.should == 1
 
-    @user.pastes.create(:content => 'Testing 2', :user_ip => '127.0.0.1', :user_agent => 'RSpec Browser')
+    @user.pastes.create(:content => 'Testing 2')
     Paste.count.should == 2
     @user.reload
     @user.paste_count.should == 2

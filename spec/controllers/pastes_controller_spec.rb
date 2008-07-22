@@ -195,7 +195,7 @@ describe PastesController do
   describe "handling POST /pastes" do
 
     before(:each) do
-      @paste = mock_model(Paste, :to_param => "1")
+      @paste = mock_model(Paste, :to_param => "1", :content => 'Content 1')
       Paste.stub!(:new).and_return(@paste)
     end
     
