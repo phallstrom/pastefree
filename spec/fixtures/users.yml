@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  email: MyString
+  token: MyString
+  paste_count: 1
+
+two:
+  email: MyString
+  token: MyString
+  paste_count: 1

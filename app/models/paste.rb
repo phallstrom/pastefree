@@ -192,4 +192,13 @@ class Paste < ActiveRecord::Base
   validates_format_of :user_ip, :with => /\A\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3}\Z/
   validates_presence_of :user_agent
 
+  belongs_to :user
+
+  # 
+  # Increment the user's paste count every time we save a paste.
+  #
+  def after_save
+    user.increment!(:paste_count) unless user.nil?
+  end
+
 end

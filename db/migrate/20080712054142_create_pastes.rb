@@ -1,6 +1,7 @@
 class CreatePastes < ActiveRecord::Migration
   def self.up
     create_table :pastes do |t|
+      t.integer :user_id
       t.text :content
       t.string :theme, :length => 32
       t.string :syntax, :length => 32
@@ -12,6 +13,8 @@ class CreatePastes < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :pastes, :user_id
   end
 
   def self.down
