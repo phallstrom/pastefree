@@ -48,7 +48,7 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_pastebin_session',
+    :session_key => '_pastefree_session',
     :secret      => '35fef3909ec5b644eb576a6c88b2554db44cf55dc05f5a34dac1930b6cec348d91aaecef8ff561267a2a9abe2a19aff08bc05f607a6d7ab73898db1a93aae49e'
   }
 
