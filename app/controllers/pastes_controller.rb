@@ -2,7 +2,7 @@ class PastesController < ApplicationController
   # GET /pastes
   # GET /pastes.xml
   def index
-    @pastes = Paste.find(:all)
+    @pastes = Paste.approved
 
     respond_to do |format|
       format.html # index.html.erb
@@ -11,25 +11,14 @@ class PastesController < ApplicationController
   end
 
   # GET /pastes/1
-  # GET /pastes/1.xml
   def show
-    @paste = Paste.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @paste }
-    end
+    @paste = Paste.approved.find(params[:id])
   end
 
   # GET /pastes/new
-  # GET /pastes/new.xml
   def new
     @paste = Paste.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @paste }
-    end
+    @user = User.find_by_token(session[:token])
   end
 
   # GET /pastes/1/edit
@@ -38,48 +27,47 @@ class PastesController < ApplicationController
   end
 
   # POST /pastes
-  # POST /pastes.xml
   def create
     @paste = Paste.new(params[:paste])
 
-    respond_to do |format|
-      if @paste.save
+    @user = User.find_by_token(session[:token])
+    if @user.nil?
+      @paste.is_approved = false
+      # TODO - register the user
+      # TODO - send an email
+    else
+      @paste.is_approved = true
+    end
+
+    if @paste.save
+      if @paste.is_approved?
         flash[:notice] = 'Paste was successfully created.'
-        format.html { redirect_to(@paste) }
-        format.xml  { render :xml => @paste, :status => :created, :location => @paste }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @paste.errors, :status => :unprocessable_entity }
+        flash[:notice] = 'Paste was successfully created, but is pending confirmation of your email address before it will be available. Check your email.'
       end
+      redirect_to(@paste)
+    else
+      render :action => "new"
     end
   end
 
   # PUT /pastes/1
-  # PUT /pastes/1.xml
   def update
     @paste = Paste.find(params[:id])
 
-    respond_to do |format|
-      if @paste.update_attributes(params[:paste])
-        flash[:notice] = 'Paste was successfully updated.'
-        format.html { redirect_to(@paste) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @paste.errors, :status => :unprocessable_entity }
-      end
+    if @paste.update_attributes(params[:paste])
+      flash[:notice] = 'Paste was successfully updated.'
+      redirect_to(@paste)
+    else
+      render :action => "edit"
     end
   end
 
   # DELETE /pastes/1
-  # DELETE /pastes/1.xml
   def destroy
     @paste = Paste.find(params[:id])
     @paste.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(pastes_url) }
-      format.xml  { head :ok }
-    end
+    redirect_to(pastes_url)
   end
 end

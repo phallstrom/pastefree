@@ -23,6 +23,15 @@
     <%= f.label :is_private %><br />
     <%= f.check_box :is_private %>
   </p>
+
+  <% if @user.nil? %>
+    <p>
+      <%= f.label :email, 'Your Email Address' %><br />
+      <%= text_field_tag :email, params[:email] %>
+      <br />(to prove your human)
+    </p>
+  <% end %>
+
   <p>
     <%= f.submit "Create" %>
   </p>
