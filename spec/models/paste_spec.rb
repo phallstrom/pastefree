@@ -35,28 +35,6 @@ describe Paste do
   end
 
 
-  it "should have a valid theme if specified" do
-    @paste.theme = 'invalid!!!'
-    @paste.should_not be_valid
-    @paste.should have(1).error_on(:theme)
-  end
-
-  it "should be valid if valid theme is specified" do
-    @paste.theme = 'zenburnesque'
-    @paste.should be_valid
-  end
-
-  it "should have a valid syntax if specified" do
-    @paste.syntax = 'invalid!!!'
-    @paste.should_not be_valid
-    @paste.should have(1).error_on(:syntax)
-  end
-
-  it "should be valid if valid syntax is specified" do
-    @paste.syntax = 'ruby'
-    @paste.should be_valid
-  end
-
   it "should have a file type if it has a file path" do
     @paste.file_path = '/tmp/file'
     @paste.should_not be_valid

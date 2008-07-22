@@ -1,6 +1,6 @@
 <h1>New paste</h1>
 
-<% form_for(@paste) do |f| %>
+<% form_for(@paste, :html => {:multipart => true}) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -9,15 +9,15 @@
   </p>
   <p>
     <%= f.label :theme %><br />
-    <%= f.text_field :theme %>
+    <%= f.select :theme, Theme.options_for_select, :include_blank => :true %>
   </p>
   <p>
     <%= f.label :syntax %><br />
-    <%= f.text_field :syntax %>
+    <%= f.select :syntax, Syntax.options_for_select, :include_blank => :true  %>
   </p>
   <p>
     <%= f.label :file_path %><br />
-    <%= f.text_field :file_path %>
+    <%= f.file_field :file_path %>
   </p>
   <p>
     <%= f.label :is_private %><br />

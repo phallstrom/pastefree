@@ -22,8 +22,8 @@ describe "/pastes/new.html.erb" do
     
     response.should have_tag("form[action=?][method=post]", pastes_path) do
       with_tag("textarea#paste_content[name=?]", "paste[content]")
-      with_tag("input#paste_theme[name=?]", "paste[theme]")
-      with_tag("input#paste_syntax[name=?]", "paste[syntax]")
+      with_tag("select#paste_theme[name=?]", "paste[theme]")
+      with_tag("select#paste_syntax[name=?]", "paste[syntax]")
       with_tag("input#paste_file_path[name=?]", "paste[file_path]")
       without_tag("input#paste_file_type[name=?]", "paste[file_type]")
       with_tag("input#paste_is_private[name=?]", "paste[is_private]")
