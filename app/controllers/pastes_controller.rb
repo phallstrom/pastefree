@@ -13,17 +13,29 @@ class PastesController < ApplicationController
   # GET /pastes/1
   def show
     @paste = Paste.approved.find(params[:id])
+    respond_to do |format|
+      format.html 
+      format.xml  {render :xml=> "Method Not Allowed", :status=>405}
+    end
   end
 
   # GET /pastes/new
   def new
     @paste = Paste.new
     @user = User.find_by_token(session[:token])
+    respond_to do |format|
+      format.html 
+      format.xml  {render :xml=> "Method Not Allowed", :status=>405}
+    end
   end
 
   # GET /pastes/1/edit
   def edit
     @paste = Paste.find(params[:id])
+    respond_to do |format|
+      format.html 
+      format.xml  {render :xml=> "Method Not Allowed", :status=>405}
+    end
   end
 
   # POST /pastes
@@ -39,15 +51,19 @@ class PastesController < ApplicationController
       @paste.is_approved = true
     end
 
-    if @paste.save
-      if @paste.is_approved?
-        flash[:notice] = 'Paste was successfully created.'
+    respond_to do |format|
+      if @paste.save
+        if @paste.is_approved?
+          flash[:notice] = 'Paste was successfully created.'
+        else
+          flash[:notice] = 'Paste was successfully created, but is pending confirmation of your email address before it will be available. Check your email.'
+        end
+        format.html { redirect_to(@paste) }
+        format.xml  { render :xml => @paste, :status => :created, :location => @paste }
       else
-        flash[:notice] = 'Paste was successfully created, but is pending confirmation of your email address before it will be available. Check your email.'
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @paste.errors, :status => :unprocessable_entity }
       end
-      redirect_to(@paste)
-    else
-      render :action => "new"
     end
   end
 
@@ -55,11 +71,15 @@ class PastesController < ApplicationController
   def update
     @paste = Paste.find(params[:id])
 
-    if @paste.update_attributes(params[:paste])
-      flash[:notice] = 'Paste was successfully updated.'
-      redirect_to(@paste)
-    else
-      render :action => "edit"
+    respond_to do |format|
+      if @paste.update_attributes(params[:paste])
+        flash[:notice] = 'Paste was successfully updated.'
+        format.html { redirect_to(@paste) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @paste.errors, :status => :unprocessable_entity }
+      end
     end
   end
 
@@ -68,6 +88,9 @@ class PastesController < ApplicationController
     @paste = Paste.find(params[:id])
     @paste.destroy
 
-    redirect_to(pastes_url)
+    respond_to do |format|
+      format.html { redirect_to(pastes_url) }
+      format.xml  { head :ok }
+    end
   end
 end

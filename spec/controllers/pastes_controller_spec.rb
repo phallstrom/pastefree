@@ -23,7 +23,7 @@ describe PastesController do
     end
   
     it "should find all pastes" do
-      Paste.should_receive(:find).with(:all).and_return([@paste])
+      Paste.should_receive(:approved).and_return([@paste])
       do_get
     end
   
@@ -108,7 +108,7 @@ describe PastesController do
 
     it "should be successful" do
       do_get
-      response.should be_success
+      response.should_not be_success
     end
   
     it "should find the paste requested" do
@@ -117,9 +117,8 @@ describe PastesController do
     end
   
     it "should render the found paste as xml" do
-      @paste.should_receive(:to_xml).and_return("XML")
       do_get
-      response.body.should == "XML"
+      response.headers['Status'].should == "405 Method Not Allowed"
     end
   end
 
@@ -203,6 +202,8 @@ describe PastesController do
   
       def do_post
         @paste.should_receive(:save).and_return(true)
+        @paste.should_receive(:is_approved=).with(false)
+        @paste.should_receive(:is_approved?).and_return(false)
         post :create, :paste => {}
       end
   
@@ -222,6 +223,7 @@ describe PastesController do
 
       def do_post
         @paste.should_receive(:save).and_return(false)
+        @paste.should_receive(:is_approved=).with(false)
         post :create, :paste => {}
       end
   

@@ -3,12 +3,12 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe PastesController do
   describe "route generation" do
 
-    it "should map { :controller => 'pastes', :action => 'index' } to /" do
-      route_for(:controller => "pastes", :action => "index").should == "/"
+    it "should map { :controller => 'pastes', :action => 'index' } to /pastes" do
+      route_for(:controller => "pastes", :action => "index").should == "/pastes"
     end
   
-    it "should map { :controller => 'pastes', :action => 'new' } to /pastes/new" do
-      route_for(:controller => "pastes", :action => "new").should == "/pastes/new"
+    it "should map { :controller => 'pastes', :action => 'new' } to /" do
+      route_for(:controller => "pastes", :action => "new").should == "/"
     end
   
     it "should map { :controller => 'pastes', :action => 'show', :id => 1 } to /pastes/1" do
@@ -30,8 +30,8 @@ describe PastesController do
 
   describe "route recognition" do
 
-    it "should generate params { :controller => 'pastes', action => 'index' } from GET /" do
-      params_from(:get, "/").should == {:controller => "pastes", :action => "index"}
+    it "should generate params { :controller => 'pastes', action => 'new' } from GET /" do
+      params_from(:get, "/").should == {:controller => "pastes", :action => "new"}
     end
 
     it "should generate params { :controller => 'pastes', action => 'index' } from GET /pastes" do

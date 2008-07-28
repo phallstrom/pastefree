@@ -6,8 +6,15 @@ describe "/pastes/show.html.erb" do
   before(:each) do
     @paste = mock_model(Paste)
     @paste.stub!(:content).and_return("MyContent")
-    @paste.stub!(:theme).and_return("MyTheme")
-    @paste.stub!(:syntax).and_return("MySyntax")
+
+    @theme = mock_model(Theme)
+    @theme.stub!(:name).and_return("MyTheme")
+    @paste.stub!(:theme).and_return(@theme)
+
+    @syntax = mock_model(Syntax)
+    @syntax.stub!(:name).and_return("MySyntax")
+    @paste.stub!(:syntax).and_return(@syntax)
+
     @paste.stub!(:file_path).and_return("MyFilePath")
     @paste.stub!(:file_type).and_return("MyFileType")
     @paste.stub!(:is_private).and_return(false)

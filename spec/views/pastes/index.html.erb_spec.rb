@@ -4,10 +4,17 @@ describe "/pastes/index.html.erb" do
   include PastesHelper
   
   before(:each) do
+
+    theme = mock_model(Theme)
+    theme.stub!(:name).and_return('MyTheme')
+
+    syntax = mock_model(Syntax)
+    syntax.stub!(:name).and_return('MySyntax')
+
     paste_98 = mock_model(Paste)
     paste_98.should_receive(:content).and_return("MyContent")
-    paste_98.should_receive(:theme).and_return("MyTheme")
-    paste_98.should_receive(:syntax).and_return("MySyntax")
+    paste_98.should_receive(:theme).and_return(theme)
+    paste_98.should_receive(:syntax).and_return(syntax)
     paste_98.should_receive(:file_path).and_return("MyFilePath")
     paste_98.should_receive(:file_type).and_return("MyFileType")
     paste_98.should_receive(:is_private).and_return(false)
@@ -16,8 +23,8 @@ describe "/pastes/index.html.erb" do
 
     paste_99 = mock_model(Paste)
     paste_99.should_receive(:content).and_return("MyContent")
-    paste_99.should_receive(:theme).and_return("MyTheme")
-    paste_99.should_receive(:syntax).and_return("MySyntax")
+    paste_99.should_receive(:theme).and_return(theme)
+    paste_99.should_receive(:syntax).and_return(syntax)
     paste_99.should_receive(:file_path).and_return("MyFilePath")
     paste_99.should_receive(:file_type).and_return("MyFileType")
     paste_99.should_receive(:is_private).and_return(false)
