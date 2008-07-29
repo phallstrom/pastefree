@@ -216,6 +216,7 @@ describe PastesController do
         User.should_not_receive(:find_or_create_by_email).with(@user.email)
         @paste.should_receive(:is_approved=).with(true)
         @paste.should_receive(:is_approved?).and_return(true)
+        @paste.should_receive(:user=).with(@user)
         do_post
       end
 
@@ -225,6 +226,7 @@ describe PastesController do
         User.should_receive(:find_or_create_by_email).with(@user.email).and_return(nil)
         @paste.should_receive(:is_approved=).with(false)
         @paste.should_receive(:is_approved?).and_return(false)
+        @paste.should_receive(:user=).with(nil)
         Mailer.should_receive(:deliver_user_confirmation)
         do_post
       end
@@ -232,6 +234,7 @@ describe PastesController do
       it "should redirect to the new paste" do
         @paste.should_receive(:is_approved=).with(false)
         @paste.should_receive(:is_approved?).and_return(false)
+        @paste.should_receive(:user=).with(@user)
         do_post
         response.should redirect_to(paste_url("1"))
       end
@@ -243,6 +246,7 @@ describe PastesController do
       def do_post
         @paste.should_receive(:save).and_return(false)
         @paste.should_receive(:is_approved=).with(false)
+        @paste.should_receive(:user=)
         post :create, :paste => {}
       end
   
@@ -330,5 +334,23 @@ describe PastesController do
       do_delete
       response.should redirect_to(pastes_url)
     end
+  end
+
+  describe "handling user confirmation" do
+
+    it "should set a cookie on valid confirmation" do
+      @user = mock_model(User, :to_param => "1", :email => 'philip@pjkh.com', :token => 'token_for_philip', :generate_token => 'token_for_philip')
+      User.stub!(:generate_token).and_return(@user.token)
+      User.stub!(:find_by_token).with(@user.token).and_return(@user)
+
+      @user.should_receive(:update_attribute).with(:is_confirmed, true)
+      @user.should_receive(:unapproved_pastes).and_return([])
+      @user.should_receive(:pastes).and_return([1])
+
+      get :confirm_user, :token => @user.token
+      cookies['token'].value.should == [@user.token]
+
+    end
+
   end
 end

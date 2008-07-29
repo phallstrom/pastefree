@@ -35,6 +35,13 @@ describe User do
     @user.email.should == 'philip@pjkh.com'
   end
 
+  it "should set the token on save" do
+    @user.save
+    @user.reload
+    @user.token.should_not be_blank
+    @user.token.should == User.generate_token(@user.email)
+  end
+
   it "should increment the paste_count" do
     @user.save
 
