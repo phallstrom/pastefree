@@ -2,7 +2,7 @@ class PastesController < ApplicationController
   # GET /pastes
   # GET /pastes.xml
   def index
-    @pastes = Paste.approved
+    @pastes = Paste.approved.not_private.find(:all, :order => 'created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb

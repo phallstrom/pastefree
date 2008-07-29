@@ -7,6 +7,7 @@ class Paste < ActiveRecord::Base
   belongs_to :theme
 
   named_scope :approved, :conditions => {:is_approved => true}
+  named_scope :not_private, :conditions => {:is_private => false}
 
   # 
   # Increment the paste counts every time we save a paste.
