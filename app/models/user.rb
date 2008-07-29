@@ -6,15 +6,29 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
 
   has_many :pastes, :order => 'created_at DESC'
+  has_many :approved_pastes, :class_name => 'Paste', :conditions => {:is_approved => true}, :order => 'created_at DESC'
+  has_many :unapproved_pastes, :class_name => 'Paste', :conditions => {:is_approved => false}, :order => 'created_at DESC'
 
+  #
+  #
+  #
   def before_save
-    self.token = make_token(self.email)
+    self.email = self.email.strip.downcase
+    self.token = self.class.generate_token(self.email)
   end
 
-  private ############################################################
+  #
+  #
+  #
+  def self.generate_token(email)
+    Digest::SHA1.hexdigest("Sam-and-Tom-#{email}")
+  end
 
-  def make_token(str)
-    Digest::SHA1.hexdigest("SAM-AND-TOM-#{str}-#{Time.now}")
+  #
+  #
+  #
+  def generate_token
+    self.class.generate_token(email)
   end
 
 

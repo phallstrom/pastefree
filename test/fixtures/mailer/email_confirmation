@@ -1,0 +1,3 @@
+Mailer#email_confirmation
+
+Find me in app/views/mailer/email_confirmation.erb

@@ -12,20 +12,20 @@ class PastesController < ApplicationController
 
   # GET /pastes/1
   def show
-    @paste = Paste.approved.find(params[:id])
+    @paste = Paste.approved.find(params[:id]) rescue nil
     respond_to do |format|
-      format.html 
-      format.xml  {render :xml=> "Method Not Allowed", :status=>405}
+      format.html { raise(ActiveRecord::RecordNotFound) if @paste.nil? } 
+      format.xml  { render :xml=> "Method Not Allowed", :status=>405 }
     end
   end
 
   # GET /pastes/new
   def new
     @paste = Paste.new
-    @user = User.find_by_token(session[:token])
+    @user = User.find_by_token(cookies[:token])
     respond_to do |format|
       format.html 
-      format.xml  {render :xml=> "Method Not Allowed", :status=>405}
+      format.xml  { render :xml=> "Method Not Allowed", :status=>405 }
     end
   end
 
@@ -34,22 +34,27 @@ class PastesController < ApplicationController
     @paste = Paste.find(params[:id])
     respond_to do |format|
       format.html 
-      format.xml  {render :xml=> "Method Not Allowed", :status=>405}
+      format.xml  { render :xml=> "Method Not Allowed", :status=>405 }
     end
   end
 
-  # POST /pastes
+  # 
+  #
+  #
   def create
     @paste = Paste.new(params[:paste])
     @user = User.find_by_token(params[:token])
 
     if @user.nil?
       @paste.is_approved = false
-      # TODO - register the user
-      # TODO - send an email
+      @user = User.find_or_create_by_email(params[:email])
+      ActionMailer::Base.default_url_options[:host] = request.host_with_port # an evil necessity
+      Mailer.deliver_user_confirmation(@user)
     else
       @paste.is_approved = true
     end
+
+    @paste.user = @user
 
     respond_to do |format|
       if @paste.save
@@ -67,7 +72,9 @@ class PastesController < ApplicationController
     end
   end
 
-  # PUT /pastes/1
+  # 
+  #
+  #
   def update
     @paste = Paste.find(params[:id])
 
@@ -93,4 +100,26 @@ class PastesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  #
+  #
+  #
+  def confirm_user
+    @user = User.find_by_token(params[:token])
+
+    if @user.nil?
+      # TODO - fix this
+      render :text => 'User confirmation not found'
+      return
+    end
+
+    @user.update_attribute(:is_confirmed, true)
+    @user.unapproved_pastes.each do |p|
+      p.update_attribute(:is_approved, true)
+    end
+    cookies[:token] = @user.token
+    flash[:notice] = 'Your humanity was confirmed. Thank you.'
+    redirect_to paste_path(@user.pastes.first)
+  end
+
 end

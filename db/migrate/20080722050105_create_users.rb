@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.string :token, :length => 40
       t.integer :paste_count, :default => 0
+      t.boolean :is_confirmed, :default => false
 
       t.timestamps
     end

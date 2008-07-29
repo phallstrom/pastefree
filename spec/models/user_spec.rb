@@ -28,11 +28,11 @@ describe User do
     }.should change(User, :count).by(1)
   end
 
-  it "should set the token on save" do
+  it "should strip and lowercase the email" do
+    @user.email = '  PHILIP@PJKH.COM   '
     @user.save
     @user.reload
-    @user.token.should_not be_blank
-    @user.token.size.should == 40
+    @user.email.should == 'philip@pjkh.com'
   end
 
   it "should increment the paste_count" do

@@ -197,24 +197,41 @@ describe PastesController do
 
     before(:each) do
       @paste = mock_model(Paste, :to_param => "1", :content => 'Content 1')
+      @user = mock_model(User, :to_param => "1", :email => 'philip@pjkh.com', :token => 'token_for_philip', :generate_token => 'token_for_philip')
       Paste.stub!(:new).and_return(@paste)
+      User.stub!(:find_or_create_by_email).and_return(@user)
     end
     
     describe "with successful save" do
   
       def do_post
         @paste.should_receive(:save).and_return(true)
-        @paste.should_receive(:is_approved=).with(false)
-        @paste.should_receive(:is_approved?).and_return(false)
-        post :create, :paste => {}
+        post :create, :paste => {}, :email => @user.email, :token => @user.token
       end
   
-      it "should create a new paste" do
-        Paste.should_receive(:new).with({}).and_return(@paste)
+      it "should create a new paste w/ a user" do
+        Paste.should_receive(:new).with(params).and_return(@paste)
+        User.stub!(:nil?).and_return(false)
+        User.should_receive(:find_by_token).with(@user.token).and_return(@user)
+        User.should_not_receive(:find_or_create_by_email).with(@user.email)
+        @paste.should_receive(:is_approved=).with(true)
+        @paste.should_receive(:is_approved?).and_return(true)
+        do_post
+      end
+
+      it "should create a new paste w/o a user" do
+        Paste.should_receive(:new).with(params).and_return(@paste)
+        User.stub!(:nil?).and_return(true)
+        User.should_receive(:find_or_create_by_email).with(@user.email).and_return(nil)
+        @paste.should_receive(:is_approved=).with(false)
+        @paste.should_receive(:is_approved?).and_return(false)
+        Mailer.should_receive(:deliver_user_confirmation)
         do_post
       end
 
       it "should redirect to the new paste" do
+        @paste.should_receive(:is_approved=).with(false)
+        @paste.should_receive(:is_approved?).and_return(false)
         do_post
         response.should redirect_to(paste_url("1"))
       end
