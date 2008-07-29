@@ -15,6 +15,7 @@ class PastesController < ApplicationController
     @paste = Paste.approved.find(params[:id]) rescue nil
     respond_to do |format|
       format.html { raise(ActiveRecord::RecordNotFound) if @paste.nil? } 
+      format.text  { render :text => @paste.content }
       format.xml  { render :xml=> "Method Not Allowed", :status=>405 }
     end
   end
