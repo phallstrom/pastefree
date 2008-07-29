@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe User do
   before(:each) do
-    @user = User.new(:email => 'philip@pjkh.com', :token => 'b5776bafff6a5f4bf54e5c408c701cd5da7f475a')
+    @user = User.new(:email => 'philip@pjkh.com')
   end
 
   it "should be valid" do
@@ -28,9 +28,11 @@ describe User do
     }.should change(User, :count).by(1)
   end
 
-  it "should have a token" do
-    @user.token = nil
-    @user.should_not be_valid
+  it "should set the token on save" do
+    @user.save
+    @user.reload
+    @user.token.should_not be_blank
+    @user.token.size.should == 40
   end
 
   it "should increment the paste_count" do

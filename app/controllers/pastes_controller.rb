@@ -41,8 +41,8 @@ class PastesController < ApplicationController
   # POST /pastes
   def create
     @paste = Paste.new(params[:paste])
+    @user = User.find_by_token(params[:token])
 
-    @user = User.find_by_token(session[:token])
     if @user.nil?
       @paste.is_approved = false
       # TODO - register the user

@@ -126,7 +126,9 @@ describe PastesController do
 
     before(:each) do
       @paste = mock_model(Paste)
+      @user = mock_model(User)
       Paste.stub!(:new).and_return(@paste)
+      Paste.stub!(:find_by_token).and_return(@user)
     end
   
     def do_get
@@ -143,7 +145,7 @@ describe PastesController do
       response.should render_template('new')
     end
   
-    it "should create an new paste" do
+    it "should create a new paste" do
       Paste.should_receive(:new).and_return(@paste)
       do_get
     end

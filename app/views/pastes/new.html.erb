@@ -30,6 +30,8 @@
       <%= text_field_tag :email, params[:email] %>
       <br />(to prove your human)
     </p>
+  <% else %>
+    <%= hidden_field_tag :token, @user.token %>
   <% end %>
 
   <p>
