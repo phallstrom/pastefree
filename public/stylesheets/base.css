@@ -35,6 +35,7 @@ a:link, a:visited, a:hover, a:active {
 #content {
   width: 700px;
   margin: 0 auto;
+  clear: both;
 }
 
 #content #new_paste {
@@ -58,4 +59,13 @@ a:link, a:visited, a:hover, a:active {
 #content #new_paste #why_email {
   width: 300px;
   margin: 0.5em auto 0 auto;
+}
+
+#content #paste_content {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #999;
+  font-size: 12px;
+  padding: 5px;
+  white-space: pre;
 }
