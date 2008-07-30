@@ -10,7 +10,7 @@ class Syntax < ActiveRecord::Base
 
 
   def self.options_for_select
-    find(:all, :order => 'name').map {|e| [e.name, e.id]}
+    [['Syntax', '']] + find(:all, :order => 'name').map {|e| [e.name, e.id]}
   end
 
 end

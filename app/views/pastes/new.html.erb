@@ -1,42 +1,39 @@
-<h1>New paste</h1>
-
 <% form_for(@paste, :html => {:multipart => true}) do |f| %>
   <%= f.error_messages %>
 
-  <p>
-    <%= f.label :content %><br />
     <%= f.text_area :content %>
-  </p>
-  <p>
-    <%= f.label :theme_id %><br />
-    <%= f.select :theme_id, Theme.options_for_select, :include_blank => :true %>
-  </p>
-  <p>
-    <%= f.label :syntax_id %><br />
-    <%= f.select :syntax_id, Syntax.options_for_select, :include_blank => :true  %>
-  </p>
-  <p>
-    <%= f.label :file_path %><br />
-    <%= f.file_field :file_path %>
-  </p>
-  <p>
-    <%= f.label :is_private %><br />
-    <%= f.check_box :is_private %>
-  </p>
+    <%= f.select :syntax_id, Syntax.options_for_select %>
+    <%= f.select :theme_id, Theme.options_for_select %>
+    <%= f.select :is_private, [['Public', false], ['Private', true]] %>
+    <%= f.submit "Paste!" %>
+
+    <!--
+    <p>
+      <%= f.label :file_path, 'Attach a File' %>
+      <%= f.file_field :file_path %>
+    </p>
+    -->
 
   <% if @user.nil? %>
-    <p>
-      <%= f.label :email, 'Your Email Address' %><br />
+    <br />
+    <br />
+      <%= f.label :email, "Your Email Address" %>
       <%= text_field_tag :email, params[:email] %>
-      <br />(to prove your human)
-    </p>
+      (<%= link_to_function "why?", "$('why_email').toggle()", :title => "Click to learn why your email address is needed." %>)
+      <div id="why_email" style="display: none">
+        Your email address is needed to verify your humanity. Once provided, a
+        cookie is set and you won't be asked again unless the cookie is deleted.
+        I have no interest in sending you email. If this still makes you uncomfortable
+        there are 
+        <%= link_to 'plenty', 'http://pastie.caboo.se/' %>
+        <%= link_to 'of other', 'http://slexy.org/' %>
+        options 
+        out there.
+      </div>
   <% else %>
     <%= hidden_field_tag :token, @user.token %>
   <% end %>
 
   <p>
-    <%= f.submit "Create" %>
   </p>
 <% end %>
-
-<%= link_to 'Back', pastes_path %>

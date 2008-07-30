@@ -64,6 +64,7 @@ class PastesController < ApplicationController
         else
           flash[:notice] = 'Paste was successfully created, but is pending confirmation of your email address before it will be available. Check your email.'
         end
+        # FIXME: if it's pending we can't view it. Hrm.
         format.html { redirect_to(@paste) }
         format.xml  { render :xml => @paste, :status => :created, :location => @paste }
       else
