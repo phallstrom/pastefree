@@ -1,28 +1,2 @@
-<p>
-  <b>Content:</b>
-  <%=h @paste.content %>
-</p>
+<div id='paste_content'><%=h @paste.content -%></div>
 
-<p>
-  <b>Theme:</b>
-  <%=h @paste.theme.name rescue '' %>
-</p>
-
-<p>
-  <b>Syntax:</b>
-  <%=h @paste.syntax.name rescue ''%>
-</p>
-
-<p>
-  <b>File path:</b>
-  <%=h @paste.file_path %>
-</p>
-
-<p>
-  <b>Is private:</b>
-  <%=h @paste.is_private %>
-</p>
-
-
-<%= link_to 'Edit', edit_paste_path(@paste) %> |
-<%= link_to 'Back', pastes_path %>

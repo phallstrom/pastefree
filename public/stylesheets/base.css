@@ -12,10 +12,7 @@ a:link, a:visited, a:hover, a:active {
 #header {
   width: 700px;
   margin: 20px auto 2px auto;
-}
-
-#header .links {
-  float: right;
+  text-align: right;
 }
 
 #header .links a {
@@ -25,11 +22,6 @@ a:link, a:visited, a:hover, a:active {
 
 #header .links a:hover {
   text-decoration: underline;
-}
-
-#header #logo {
-  float: left;
-  height: 50px;
 }
 
 #content {
@@ -56,6 +48,10 @@ a:link, a:visited, a:hover, a:active {
   font-size: 12px;
 }
 
+#content #new_paste textarea {
+  background: #fff url('/images/logo_faded.png') no-repeat scroll top right;
+}
+
 #content #new_paste #why_email {
   width: 300px;
   margin: 0.5em auto 0 auto;
@@ -63,7 +59,7 @@ a:link, a:visited, a:hover, a:active {
 
 #content #paste_content {
   width: 100%;
-  background-color: #fff;
+  background: #fff url('/images/logo_faded.png') no-repeat scroll top right;
   border: 1px solid #999;
   font-size: 12px;
   padding: 5px;
