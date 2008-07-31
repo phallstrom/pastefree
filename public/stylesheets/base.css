@@ -126,3 +126,30 @@ form textarea {
   float: right;
   text-align: right;
 }
+
+/************************************************************/
+
+div.auto_complete {
+  width: 350px;
+  background: #fff;
+}
+div.auto_complete ul {
+  border:1px solid #999;
+  margin:0;
+  padding:0;
+  width:100%;
+  list-style-type:none;
+}
+div.auto_complete ul li {
+  margin:0;
+  text-align: left;
+  padding:3px;
+}
+div.auto_complete ul li.selected {
+  background-color: #eee;
+}
+div.auto_complete ul strong.highlight {
+  margin:0;
+  padding:0;
+  text-decoration: underline;
+}

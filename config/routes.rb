@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :pastes
 
+
   map.statistics '/statistics', :controller => 'home', :action => 'statistics'
   map.about '/about', :controller => 'home', :action => 'about'
   map.confirm_user '/confirm/:token', :controller => 'home', :action => 'confirm_user'

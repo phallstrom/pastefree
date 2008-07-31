@@ -12,7 +12,7 @@
       <%= hidden_field_tag :token, @user.token %>
     <% end %>
 
-    <%= f.select :syntax_id, Syntax.options_for_select %>
+    <%= belongs_to_auto_completer :paste, :syntax, :name, {}, {:value => 'Syntax', :onclick => 'this.select()', :autocomplete => :off}, {:skip_style => true}  %>
 
     <%= f.select :theme_id, Theme.options_for_select %>
 

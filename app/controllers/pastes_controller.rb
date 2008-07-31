@@ -1,4 +1,5 @@
 class PastesController < ApplicationController
+  
   # GET /pastes
   # GET /pastes.xml
   def index
@@ -127,5 +128,17 @@ class PastesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  #
+  #
+  #
+  def auto_complete_belongs_to_for_paste_syntax_name
+    @syntaxes = Syntax.find(:all,
+                        :conditions => ['LOWER(name) LIKE ?', '%' + params[:syntax][:name].downcase + '%'],
+                        :order => 'paste_count, name',
+                        :limit => 10)
+    render :inline => '<%= model_auto_completer_result(@syntaxes, :name,  params[:syntax][:name].downcase) %>'
+  end
+
 
 end
