@@ -9,167 +9,166 @@ class CreateSyntaxes < ActiveRecord::Migration
     end
 
 
-    %w[
-     actionscript
-     active4d
-     active4d_html
-     active4d_ini
-     active4d_library
-     ada
-     antlr
-     apache
-     applescript
-     asp
-     asp_vb.net
-     bibtex
-     blog_html
-     blog_markdown
-     blog_text
-     blog_textile
-     build
-     bulletin_board
-     c
-     c++
-     cake
-     camlp4
-     cm
-     coldfusion
-     context_free
-     cs
-     css
-     css_experimental
-     csv
-     d
-     diff
-     dokuwiki
-     dot
-     doxygen
-     dylan
-     eiffel
-     erlang
-     f-script
-     fortran
-     fxscript
-     greasemonkey
-     gri
-     groovy
-     gtd
-     gtdalt
-     haml
-     haskell
-     html
-     html-asp
-     html_django
-     html_for_asp.net
-     html_mason
-     html_rails
-     html_tcl
-     icalendar
-     inform
-     ini
-     installer_distribution_script
-     io
-     java
-     javaproperties
-     javascript
-     javascript_+_prototype
-     javascript_+_prototype_bracketed
-     jquery_javascript
-     json
-     languagedefinition
-     latex
-     latex_beamer
-     latex_log
-     latex_memoir
-     lexflex
-     lighttpd
-     lilypond
-     lisp
-     literate_haskell
-     logo
-     logtalk
-     lua
-     m
-     macports_portfile
-     mail
-     makefile
-     man
-     markdown
-     mediawiki
-     mel
-     mips
-     mod_perl
-     modula-3
-     moinmoin
-     mootools
-     movable_type
-     multimarkdown
-     objective-c
-     objective-c++
-     ocaml
-     ocamllex
-     ocamlyacc
-     opengl
-     pascal
-     perl
-     php
-     plain_text
-     pmwiki
-     postscript
-     processing
-     prolog
-     property_list
-     python
-     python_django
-     qmake_project
-     qt_c++
-     quake3_config
-     r
-     r_console
-     ragel
-     rd_r_documentation
-     regexp
-     regular_expressions_oniguruma
-     regular_expressions_python
-     release_notes
-     remind
-     restructuredtext
-     rez
-     ruby
-     ruby_experimental
-     ruby_on_rails
-     s5
-     scheme
-     scilab
-     setext
-     shell-unix-generic
-     slate
-     smarty
-     sql
-     sql_rails
-     ssh-config
-     standard_ml
-     strings_file
-     subversion_commit_message
-     sweave
-     swig
-     tcl
-     template_toolkit
-     tex
-     tex_math
-     textile
-     tsv
-     twiki
-     txt2tags
-     vectorscript
-     xhtml_1.0
-     xml
-     xml_strict
-     xsl
-     yaml
-     yui_javascript
-    ].each do |code|
-      Syntax.create!(:name => code, :code => code)
+    { 'actionscript' => 'ActionScript',
+      'active4d' => 'Active4D',
+      'active4d_html' => 'HTML (Active4D)',
+      'active4d_ini' => 'Active4D Config',
+      'active4d_library' => 'Active4D Library',
+      'ada' => 'Ada',
+      'antlr' => 'ANTLR',
+      'apache' => 'Apache',
+      'applescript' => 'AppleScript',
+      'asp' => 'ASP',
+      'asp_vb.net' => 'ASP vb.NET',
+      'bibtex' => 'BibTeX',
+      'blog_html' => 'Blog (HTML)',
+      'blog_markdown' => 'Blog (Markdown)',
+      'blog_text' => 'Blog (Text)',
+      'blog_textile' => 'Blog (Textile)',
+      'build' => 'NAnt Build File',
+      'bulletin_board' => 'Bulletin Board',
+      'c++' => 'C++',
+      'c' => 'C',
+      'cake' => 'Cake PHP',
+      'camlp4' => 'camlp4',
+      'cm' => 'CM',
+      'coldfusion' => 'ColdFusion',
+      'context_free' => 'Context Free',
+      'cs' => 'C#',
+      'css' => 'CSS',
+      'css_experimental' => 'CSS v3 beta',
+      'csv' => 'CSV',
+      'd' => 'D',
+      'diff' => 'Diff',
+      'dokuwiki' => 'DokuWiki',
+      'dot' => 'Graphviz (DOT)',
+      'doxygen' => 'Doxygen',
+      'dylan' => 'Dylan',
+      'eiffel' => 'Eiffel',
+      'erlang' => 'Erlang',
+      'f-script' => 'F-Script',
+      'fortran' => 'Fortran',
+      'fxscript' => 'FXScript',
+      'greasemonkey' => 'Greasemonkey',
+      'gri' => 'Gri',
+      'groovy' => 'Groovy',
+      'gtd' => 'GTD',
+      'gtdalt' => 'GTDalt',
+      'haml' => 'Haml',
+      'haskell' => 'Haskell',
+      'html-asp' => 'HTML (ASP)',
+      'html' => 'HTML',
+      'html_django' => 'HTML (Django)',
+      'html_for_asp.net' => 'HTML (ASP.net)',
+      'html_mason' => 'HTML (Mason)',
+      'html_rails' => 'HTML (Rails)',
+      'html_tcl' => 'HTML (Tcl)',
+      'icalendar' => 'iCalendar',
+      'inform' => 'Inform',
+      'ini' => 'Ini',
+      'installer_distribution_script' => 'Installer Distribution Script',
+      'io' => 'Io',
+      'java' => 'Java',
+      'javaproperties' => 'Java Properties',
+      'javascript' => 'JavaScript',
+      'javascript_+_prototype' => 'Prototype (JavaScript)',
+      'javascript_+_prototype_bracketed' => 'Prototype (JavaScript) Bracketed',
+      'jquery_javascript' => 'jQuery (JavaScript)',
+      'json' => 'JSON',
+      'languagedefinition' => 'Language Grammar',
+      'latex' => 'LaTeX',
+      'latex_beamer' => 'LaTeX Beamer',
+      'latex_log' => 'LaTeX Log',
+      'latex_memoir' => 'LaTeX Memoir',
+      'lexflex' => 'Lex/Flex',
+      'lighttpd' => 'Lighttpd',
+      'lilypond' => 'Lilypond',
+      'lisp' => 'Lisp',
+      'literate_haskell' => 'Literate Haskell',
+      'logo' => 'Logo',
+      'logtalk' => 'Logtalk',
+      'lua' => 'Lua',
+      'm' => 'MATLAB',
+      'macports_portfile' => 'MacPorts Portfile',
+      'mail' => 'Mail',
+      'makefile' => 'Makefile',
+      'man' => 'Man',
+      'markdown' => 'Markdown',
+      'mediawiki' => 'Mediawiki',
+      'mel' => 'MEL',
+      'mips' => 'MIPS Assembler',
+      'mod_perl' => 'mod_perl',
+      'modula-3' => 'Modula-3',
+      'moinmoin' => 'MoinMoin',
+      'mootools' => 'MooTools',
+      'movable_type' => 'Movable Type',
+      'multimarkdown' => 'MultiMarkdown',
+      'objective-c++' => 'Objective-C++',
+      'objective-c' => 'Objective-C',
+      'ocaml' => 'OCaml',
+      'ocamllex' => 'OCamllex',
+      'ocamlyacc' => 'OCamlyacc',
+      'opengl' => 'OpenGL',
+      'pascal' => 'Pascal',
+      'perl' => 'Perl',
+      'php' => 'PHP',
+      'plain_text' => 'Plain Text',
+      'pmwiki' => 'PmWiki',
+      'postscript' => 'Postscript',
+      'processing' => 'Processing',
+      'prolog' => 'Prolog',
+      'property_list' => 'Property List',
+      'python' => 'Python',
+      'python_django' => 'Python (Django)',
+      'qmake_project' => 'qmake Project file',
+      'qt_c++' => 'Qt C++',
+      'quake3_config' => 'Quake Style .cfg',
+      'r' => 'R',
+      'r_console' => 'R Console',
+      'ragel' => 'Ragel',
+      'rd_r_documentation' => 'Rd (R Documentation)',
+      'regexp' => 'Regular Expression',
+      'regular_expressions_oniguruma' => 'Regular Expressions (Oniguruma)',
+      'regular_expressions_python' => 'Regular Expressions (Python)',
+      'release_notes' => 'Release Notes',
+      'remind' => 'Remind',
+      'restructuredtext' => 'reStructuredText',
+      'rez' => 'Rez',
+      'ruby' => 'Ruby',
+      'ruby_experimental' => 'Ruby Experimental',
+      'ruby_on_rails' => 'Ruby on Rails',
+      's5' => 'S5 Slide Show',
+      'scheme' => 'Scheme',
+      'scilab' => 'Scilab',
+      'setext' => 'Setext',
+      'shell-unix-generic' => 'Shell Script (Bash)',
+      'slate' => 'Slate',
+      'smarty' => 'Smarty',
+      'sql' => 'SQL',
+      'sql_rails' => 'SQL (Rails)',
+      'ssh-config' => 'SSH Config',
+      'standard_ml' => 'Standard ML',
+      'strings_file' => 'Strings File',
+      'subversion_commit_message' => 'Subversion Commit Message',
+      'sweave' => 'SWeave',
+      'swig' => 'SWIG',
+      'tcl' => 'Tcl',
+      'template_toolkit' => 'Template Toolkit',
+      'tex' => 'TeX',
+      'tex_math' => 'TeX Math',
+      'textile' => 'Textile',
+      'tsv' => 'TSV',
+      'twiki' => 'Twiki',
+      'txt2tags' => 'Txt2tags',
+      'vectorscript' => 'Vectorscript',
+      'xhtml_1.0' => 'XHTML 1.0 Strict',
+      'xml' => 'XML',
+      'xml_strict' => 'XML strict',
+      'xsl' => 'XSL',
+      'yaml' => 'YAML',
+      'yui_javascript' => 'Javascript YUI',
+    }.each_pair do |code, name|
+      Syntax.create!(:name => name, :code => code)
     end
 
   end

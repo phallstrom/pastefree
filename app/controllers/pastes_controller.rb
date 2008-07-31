@@ -63,6 +63,8 @@ class PastesController < ApplicationController
       return
     end
 
+    # FIXME - if you lose your cookie you can just type in any valid email and it works. that's not good
+
     if @user.nil?
       @user = User.find_or_create_by_email(params[:email])
 

@@ -1,34 +1,42 @@
 <% form_for(@paste, :html => {:multipart => true}) do |f| %>
+  <%#= f.file_field :file_path %>
 
-    <%= f.text_area :content %>
+  <%= f.text_area :content %>
+
+  <div class='below_pasted_content'>
+    <% if @user.nil? || !@user.valid? %>
+        <%= f.label :email, "Your Email Address" %>
+        (<%= link_to_function "why?", "$('why_email').toggle()", :title => "Click to learn why your email address is needed." %>)
+        <%= text_field_tag :email, params[:email] %>
+    <% else %>
+      <%= hidden_field_tag :token, @user.token %>
+    <% end %>
+
     <%= f.select :syntax_id, Syntax.options_for_select %>
+
     <%= f.select :theme_id, Theme.options_for_select %>
+
     <%= f.submit "Paste!" %>
 
-    <%#= f.file_field :file_path %>
+    <div id="why_email" style="display: none">
+      Your email address is needed to verify your humanity. Once provided, a
+      cookie is set and you won't be asked again unless the cookie is deleted.
+      I have no interest in sending you email. I may use it for some anonymous statistical purposes.
+      If this still makes you uncomfortable there are 
+      <%= link_to 'plenty', 'http://pastie.org/' %>
+      <%= link_to 'of', 'http://slexy.org/' %>
+      <%= link_to 'other', 'http://rafb.net/paste/' %>
+      <%= link_to 'options', 'http://pastebin.com/' %>.
+    </div>
 
-  <% if @user.nil? || !@user.valid? %>
-    <br />
-    <br />
-      <%= f.label :email, "Your Email Address" %>
-      <%= text_field_tag :email, params[:email] %>
-      (<%= link_to_function "why?", "$('why_email').toggle()", :title => "Click to learn why your email address is needed." %>)
-      <div id="why_email" style="display: none">
-        Your email address is needed to verify your humanity. Once provided, a
-        cookie is set and you won't be asked again unless the cookie is deleted.
-        I have no interest in sending you email. I may use it for some anonymous statistical purposes.
-        If this still makes you uncomfortable there are 
-        <%= link_to 'plenty', 'http://pastie.org/' %>
-        <%= link_to 'of', 'http://slexy.org/' %>
-        <%= link_to 'other', 'http://rafb.net/paste/' %>
-        <%= link_to 'options', 'http://pastebin.com/' %>
-        out there.
-      </div>
-  <% else %>
-    <%= hidden_field_tag :token, @user.token %>
-  <% end %>
+    <% unless @errors.blank? %>
+      <div id='errors'>
+        <b>Uh-oh. Errors.</b>
+        <ul>
+          <li><%= @errors.join('.</li><li>') %>.</li>
+        </ul>
+    <% end %>
 
-  <% unless @errors.blank? %>
-    <div id='errors'><%= @errors.join(' &bull; ') %></div>
-  <% end %>
+  </div>
+
 <% end %>

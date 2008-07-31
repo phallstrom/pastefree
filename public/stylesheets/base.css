@@ -10,7 +10,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #header {
-  width: 80%;
+  width: 90%;
   margin: 20px auto 2px auto;
   text-align: right;
 }
@@ -25,7 +25,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #content {
-  width: 80%;
+  width: 90%;
   margin: 0 auto 50px auto;
   clear: both;
 }
@@ -54,15 +54,14 @@ form textarea {
 }
 
 #content #new_paste #why_email {
-  width: 300px;
-  margin: 0.5em auto 0 auto;
+  float: right;
+  width: 70%;
+  margin-top: 0.5em;
 }
 
 #content #new_paste #errors {
-  width: 500px;
-  margin: 1.0em auto 0 auto;
-  font-weight: bold;
-  color: #444;
+  margin-top: 1.0em;
+  clear: both;
 }
 
 #content #pasted_content {
@@ -123,3 +122,7 @@ form textarea {
   font-size: 2em;
 }
 
+#content .below_pasted_content {
+  float: right;
+  text-align: right;
+}

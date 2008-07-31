@@ -8,30 +8,29 @@ class CreateThemes < ActiveRecord::Migration
       t.timestamps
     end
 
-    %w[
-     active4d
-     all_hallows_eve
-     amy
-     blackboard
-     brilliance_black
-     brilliance_dull
-     cobalt
-     dawn
-     eiffel
-     espresso_libre
-     idle
-     iplastic
-     lazy
-     mac_classic
-     magicwb_amiga
-     pastels_on_dark
-     slush_poppies
-     spacecadet
-     sunburst
-     twilight
-     zenburnesque
-    ].each do |code|
-      Theme.create!(:name => code, :code => code)
+    { 'active4d' => 'Active 4D',
+      'all_hallows_eve' => 'All Hallows Eve',
+      'amy' => 'Amy',
+      'blackboard' => 'Blackboard',
+      'brilliance_black' => 'Brilliance Black',
+      'brilliance_dull' => 'Brilliance Dull',
+      'cobalt' => 'Cobalt',
+      'dawn' => 'Dawn',
+      'eiffel' => 'Eiffel',
+      'espresso_libre' => 'Espresso Libre',
+      'idle' => 'IDLE',
+      'iplastic' => 'iPlastic',
+      'lazy' => 'LAZY',
+      'mac_classic' => 'Mac Classic',
+      'magicwb_amiga' => 'MagicWB (Amiga)',
+      'pastels_on_dark' => 'Pastels on Dark',
+      'slush_poppies' => 'Slush Poppies',
+      'spacecadet' => 'SpaceCadet',
+      'sunburst' => 'Sunburst',
+      'twilight' => 'Twilight',
+      'zenburnesque' => 'Zenburnesque',
+    }.each_pair do |code, name|
+      Theme.create!(:name => name, :code => code)
     end
 
   end
