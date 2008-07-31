@@ -6,8 +6,7 @@ class Paste < ActiveRecord::Base
   belongs_to :syntax
   belongs_to :theme
 
-  named_scope :approved, :conditions => {:is_approved => true}
-  named_scope :not_private, :conditions => {:is_private => false}
+  named_scope :approved, :conditions => {:is_approved => true}, :order => 'created_at DESC'
 
   # 
   # Increment the paste counts every time we save a paste.

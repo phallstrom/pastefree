@@ -26,7 +26,7 @@ a:link, a:visited, a:hover, a:active {
 
 #content {
   width: 700px;
-  margin: 0 auto;
+  margin: 0 auto 50px auto;
   clear: both;
 }
 

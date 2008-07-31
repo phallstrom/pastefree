@@ -10,7 +10,6 @@ describe "/pastes/edit.html.erb" do
     @paste.stub!(:syntax_id).and_return(123)
     @paste.stub!(:file_path).and_return("MyString")
     @paste.stub!(:file_type).and_return("MyString")
-    @paste.stub!(:is_private).and_return(false)
     @paste.stub!(:user_ip).and_return("MyString")
     @paste.stub!(:user_agent).and_return("MyString")
     assigns[:paste] = @paste
@@ -25,7 +24,6 @@ describe "/pastes/edit.html.erb" do
       with_tag('select#paste_syntax_id[name=?]', "paste[syntax_id]")
       with_tag('input#paste_file_path[name=?]', "paste[file_path]")
       without_tag('input#paste_file_type[name=?]', "paste[file_type]")
-      with_tag('input#paste_is_private[name=?]', "paste[is_private]")
       without_tag('input#paste_user_ip[name=?]', "paste[user_ip]")
       without_tag('input#paste_user_agent[name=?]', "paste[user_agent]")
     end

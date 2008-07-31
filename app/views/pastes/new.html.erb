@@ -4,7 +4,6 @@
     <%= f.text_area :content %>
     <%= f.select :syntax_id, Syntax.options_for_select %>
     <%= f.select :theme_id, Theme.options_for_select %>
-    <%= f.select :is_private, [['Public', false], ['Private', true]] %>
     <%= f.submit "Paste!" %>
 
     <!--

@@ -9,7 +9,6 @@ class CreatePastes < ActiveRecord::Migration
       t.string :syntax, :length => 32
       t.string :file_path
       t.string :file_type, :length => 64
-      t.boolean :is_private, :default => false
       t.boolean :is_approved, :default => false
 
       t.timestamps

@@ -4,7 +4,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :pastes
 
-  map.confirm_user '/confirm/:token', :controller => 'pastes', :action => 'confirm_user'
+  map.statistics '/statistics', :controller => 'home', :action => 'statistics'
+  map.about '/about', :controller => 'home', :action => 'about'
+  map.confirm_user '/confirm/:token', :controller => 'home', :action => 'confirm_user'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

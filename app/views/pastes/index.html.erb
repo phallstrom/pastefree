@@ -7,7 +7,6 @@
     <th>Syntax</th>
     <th>File path</th>
     <th>File type</th>
-    <th>Is private</th>
   </tr>
 
 <% for paste in @pastes %>
@@ -17,7 +16,6 @@
     <td><%=h paste.syntax.name rescue '' %></td>
     <td><%=h paste.file_path %></td>
     <td><%=h paste.file_type %></td>
-    <td><%=h paste.is_private %></td>
     <td><%= link_to 'Show', paste %></td>
     <td><%= link_to 'Edit', edit_paste_path(paste) %></td>
     <td><%= link_to 'Destroy', paste, :confirm => 'Are you sure?', :method => :delete %></td>

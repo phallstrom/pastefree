@@ -2,7 +2,7 @@ class PastesController < ApplicationController
   # GET /pastes
   # GET /pastes.xml
   def index
-    @pastes = Paste.approved.not_private.find(:all, :order => 'created_at DESC')
+    @pastes = Paste.approved
 
     respond_to do |format|
       format.html # index.html.erb
@@ -12,9 +12,12 @@ class PastesController < ApplicationController
 
   # GET /pastes/1
   def show
-    @paste = Paste.approved.find(params[:id]) rescue nil
+    @paste = Paste.find(params[:id])
+
+    # FIXME - handle unapproved pastes and pastes just submitted, but not approved.
+    
     respond_to do |format|
-      format.html { raise(ActiveRecord::RecordNotFound) if @paste.nil? } 
+      format.html # render
       format.text  { render :text => @paste.content }
       format.xml  { render :xml=> "Method Not Allowed", :status=>405 }
     end
@@ -101,27 +104,6 @@ class PastesController < ApplicationController
       format.html { redirect_to(pastes_url) }
       format.xml  { head :ok }
     end
-  end
-
-  #
-  #
-  #
-  def confirm_user
-    @user = User.find_by_token(params[:token])
-
-    if @user.nil?
-      # TODO - fix this
-      render :text => 'User confirmation not found'
-      return
-    end
-
-    @user.update_attribute(:is_confirmed, true)
-    @user.unapproved_pastes.each do |p|
-      p.update_attribute(:is_approved, true)
-    end
-    cookies[:token] = @user.token
-    flash[:notice] = 'Your humanity was confirmed. Thank you.'
-    redirect_to paste_path(@user.pastes.first)
   end
 
 end

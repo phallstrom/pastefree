@@ -17,7 +17,6 @@ describe "/pastes/show.html.erb" do
 
     @paste.stub!(:file_path).and_return("MyFilePath")
     @paste.stub!(:file_type).and_return("MyFileType")
-    @paste.stub!(:is_private).and_return(false)
     @paste.stub!(:user_ip).and_return("MyUserIp")
     @paste.stub!(:user_agent).and_return("MyUserAgent")
 
@@ -27,13 +26,6 @@ describe "/pastes/show.html.erb" do
   it "should render attributes in <p>" do
     render "/pastes/show.html.erb"
     response.should have_text(/MyContent/)
-    response.should have_text(/MyTheme/)
-    response.should have_text(/MySyntax/)
-    response.should have_text(/MyFilePath/)
-    response.should_not have_text(/MyFileType/)
-    response.should have_text(/als/)
-    response.should_not have_text(/MyUserIp/)
-    response.should_not have_text(/MyUserAgent/)
   end
 end
 
