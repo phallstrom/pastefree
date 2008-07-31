@@ -1,19 +1,13 @@
 <% form_for(@paste, :html => {:multipart => true}) do |f| %>
-  <%= f.error_messages %>
 
     <%= f.text_area :content %>
     <%= f.select :syntax_id, Syntax.options_for_select %>
     <%= f.select :theme_id, Theme.options_for_select %>
     <%= f.submit "Paste!" %>
 
-    <!--
-    <p>
-      <%= f.label :file_path, 'Attach a File' %>
-      <%= f.file_field :file_path %>
-    </p>
-    -->
+    <%#= f.file_field :file_path %>
 
-  <% if @user.nil? %>
+  <% if @user.nil? || !@user.valid? %>
     <br />
     <br />
       <%= f.label :email, "Your Email Address" %>
@@ -34,6 +28,7 @@
     <%= hidden_field_tag :token, @user.token %>
   <% end %>
 
-  <p>
-  </p>
+  <% unless @errors.blank? %>
+    <div id='errors'><%= @errors.join(' &bull; ') %></div>
+  <% end %>
 <% end %>

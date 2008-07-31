@@ -28,8 +28,16 @@ describe User do
     }.should change(User, :count).by(1)
   end
 
+  it "should require a valid looking email" do
+    ['invalid', 'invalid@', '@invalid', 'a@b'].each do |e|
+      @user.email = e
+      @user.should_not be_valid
+      @user.should have(1).error_on(:email)
+    end
+  end
+
   it "should strip and lowercase the email" do
-    @user.email = '  PHILIP@PJKH.COM   '
+    @user.email = '   PHILIP@PJKH.COM   '
     @user.save
     @user.reload
     @user.email.should == 'philip@pjkh.com'

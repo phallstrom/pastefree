@@ -1,28 +1,9 @@
-<h1>Listing pastes</h1>
-
-<table>
-  <tr>
-    <th>Content</th>
-    <th>Theme</th>
-    <th>Syntax</th>
-    <th>File path</th>
-    <th>File type</th>
-  </tr>
-
-<% for paste in @pastes %>
-  <tr>
-    <td><%=h paste.content %></td>
-    <td><%=h paste.theme.name rescue ''%></td>
-    <td><%=h paste.syntax.name rescue '' %></td>
-    <td><%=h paste.file_path %></td>
-    <td><%=h paste.file_type %></td>
-    <td><%= link_to 'Show', paste %></td>
-    <td><%= link_to 'Edit', edit_paste_path(paste) %></td>
-    <td><%= link_to 'Destroy', paste, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New paste', new_paste_path %>
+<div id='pastes'>
+  <% @pastes.each do |paste| %>
+    <div class='paste'>
+      <div class='link_to'>#<%= link_to paste.id, paste_path(paste) -%></div>
+      <div class='created_at'><%= paste.created_at -%></div>
+      <div class='snippet'><%=h paste.content -%></div>
+    </div>
+  <% end %>
+</div>

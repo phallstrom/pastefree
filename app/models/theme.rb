@@ -8,8 +8,8 @@ class Theme < ActiveRecord::Base
 
   has_many :pastes
 
-  def self.options_for_select
-    [['Theme', '']] + find(:all, :order => 'name').map {|e| [e.name, e.id]}
+  def self.options_for_select(name = :name, id = :id)
+    [['Theme', '']] + find(:all, :order => 'name').map {|e| [e.send(name), e.send(id)]}
   end
 
 end

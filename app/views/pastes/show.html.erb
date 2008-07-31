@@ -1,2 +1,20 @@
-<div id='paste_content'><%=h @paste.content -%></div>
+<% content_for :head do %>
+  <% Theme.all.each do |t| %>
+    <%= stylesheet_link_tag "ultraviolet/#{t.code}", :id=> "theme_#{t.code}", :rel => "#{'x-' unless @paste.theme == t}stylesheet" %>
+  <% end %>
+<% end %>
 
+
+<div id='pasted_content' style='position: relative'>
+  <%= image_tag "logo_faded.png", :style=>'position: absolute; top: 0; right: 0' -%>
+  <%= @paste.highlighted_content -%>
+</div>
+
+<div style='float: right'>
+  <%= button_to 'text version', formatted_paste_path(@paste, :txt), :method => :get, :title => 'click for raw version of paste' %>
+</div>
+<div style='float: right; margin-right: 5px'>
+  <% form_tag do %>
+    <%= select_tag :theme, options_for_select(Theme.options_for_select(:name, :code)), :onchange => 'switch_theme_to(this.options[this.selectedIndex].value)', :title => 'view this paste using a different theme' %>
+  <% end %>
+</div>

@@ -1,7 +1,7 @@
 body {
   background-color: #ccc;
   font-family: 'Gill Sans',Arial,Helvetica,sans-serif;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 a:link, a:visited, a:hover, a:active {
@@ -10,7 +10,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #header {
-  width: 700px;
+  width: 80%;
   margin: 20px auto 2px auto;
   text-align: right;
 }
@@ -25,7 +25,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #content {
-  width: 700px;
+  width: 80%;
   margin: 0 auto 50px auto;
   clear: both;
 }
@@ -34,17 +34,23 @@ a:link, a:visited, a:hover, a:active {
   text-align: center;
 }
 
-#content #new_paste textarea,
-#content #new_paste input,
-#content #new_paste select
+form textarea,
+form input,
+form select,
+button
 {
   background-color: #eee;
   border: 1px solid #999;
   font-size: 12px;
 }
 
-#content #new_paste textarea {
+form textarea {
   background: #fff url('/images/logo_faded.png') no-repeat scroll top right;
+  width: 100%;
+  border: 1px solid #999;
+  font-size: 12px;
+  font-family: 'Monaco', 'Lucida Console', 'Courier New';
+  height: 30em;
 }
 
 #content #new_paste #why_email {
@@ -52,17 +58,68 @@ a:link, a:visited, a:hover, a:active {
   margin: 0.5em auto 0 auto;
 }
 
-#content #paste_content {
+#content #new_paste #errors {
+  width: 500px;
+  margin: 1.0em auto 0 auto;
+  font-weight: bold;
+  color: #444;
+}
+
+#content #pasted_content {
   width: 100%;
-  background: #fff url('/images/logo_faded.png') no-repeat scroll top right;
+  min-height: 150px;
+  max-height: 800px;
+  background: #fff;
+  border: 1px solid #999;
+  font-size: 12px;
+  font-family: 'Monaco', 'Lucida Console', 'Courier New';
+  overflow: auto;
+}
+
+#content #pastes {
+  margin-top: 2em;
+}
+
+#content #pastes .link_to {
+  float: left;
+  color: #333;
+  font-size: 1.1em;
+}
+
+#content #pastes .created_at {
+  float: right;
+  color: #333;
+  font-size: 0.9em;
+}
+
+#content #pastes .snippet {
+  clear: both;
+  background-color: #fff;
+  width: 100%;
+  min-height: 120px;
   border: 1px solid #999;
   font-size: 12px;
   padding: 5px;
   white-space: pre;
   font-family: 'Monaco', 'Lucida Console', 'Courier New';
+  margin-bottom: 2em;
 }
 
-#content #new_paste #paste_content {
-  height: 30em;
+#content .whitebox {
+  clear: both;
+  width: 100%;
+  min-height: 120px;
+  background-color: #fff;
+  border: 1px solid #999;
+  padding: 5px;
+  color: #333;
+}
+
+#content .whitebox p {
+  margin: 0.5em 0;
+}
+
+#content .whitebox h1 {
+  font-size: 2em;
 }
 
