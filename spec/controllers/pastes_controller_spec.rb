@@ -250,7 +250,7 @@ describe PastesController do
       Paste.should_receive(:new).with(params[:paste]).and_return(@paste)
       User.should_receive(:find_or_create_by_email).with(@user.email).and_return(@user)
       @user.should_receive(:valid?).and_return(true)
-      @user.should_receive(:update_attributes).with(:is_confirmed, false)
+      @user.should_receive(:update_attribute).with(:is_confirmed, false)
       @paste.should_receive(:valid?).and_return(true)
       @paste.should_receive(:is_approved=).with(false)
       @paste.should_receive(:user=).with(@user)

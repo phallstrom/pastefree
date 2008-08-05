@@ -78,7 +78,7 @@ class PastesController < ApplicationController
       end
 
       # force them to reconfirm
-      @user.update_attributes(:is_confirmed, false) unless @user.new_record?
+      @user.update_attribute(:is_confirmed, false) unless @user.new_record?
 
       ActionMailer::Base.default_url_options[:host] = request.host_with_port # an evil necessity
       Mailer.deliver_user_confirmation(@user)
