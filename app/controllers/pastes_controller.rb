@@ -65,8 +65,6 @@ class PastesController < ApplicationController
       return
     end
 
-    # FIXME - if you lose your cookie you can just type in any valid email and it works. that's not good
-
     if @user.nil?
       @user = User.find_or_create_by_email(params[:email])
 
@@ -79,10 +77,11 @@ class PastesController < ApplicationController
         return
       end
 
-      unless @user.is_confirmed?
-        ActionMailer::Base.default_url_options[:host] = request.host_with_port # an evil necessity
-        Mailer.deliver_user_confirmation(@user)
-      end
+      # force them to reconfirm
+      @user.update_attributes(:is_confirmed, false) unless @user.new_record?
+
+      ActionMailer::Base.default_url_options[:host] = request.host_with_port # an evil necessity
+      Mailer.deliver_user_confirmation(@user)
     end
 
     @paste.is_approved = @user.is_confirmed?
