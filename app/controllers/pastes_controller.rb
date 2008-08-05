@@ -1,13 +1,12 @@
 class PastesController < ApplicationController
   
-  # GET /pastes
-  # GET /pastes.xml
+  # 
+  #
+  #
   def index
-    @pastes = Paste.approved
-
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @pastes }
+      format.html { redirect_to new_paste_path }
+      format.xml  { render :xml=> "Method Not Allowed", :status => 405 }
     end
   end
 
@@ -15,33 +14,35 @@ class PastesController < ApplicationController
   def show
     @paste = Paste.find(params[:id])
 
-    
     action = "show"
     action = "show_pending" if !@paste.is_approved?
 
     respond_to do |format|
       format.html { render :action => action }
       format.text  { render :text => @paste.content }
-      format.xml  { render :xml=> "Method Not Allowed", :status=>405 }
+      format.xml  { render :xml=> "Method Not Allowed", :status => 405 }
     end
   end
 
-  # GET /pastes/new
+  #
+  #
+  #
   def new
     @paste = Paste.new
     @user = User.find_by_token(cookies[:token])
     respond_to do |format|
       format.html 
-      format.xml  { render :xml=> "Method Not Allowed", :status=>405 }
+      format.xml  { render :xml=> "Method Not Allowed", :status => 405 }
     end
   end
 
-  # GET /pastes/1/edit
+  #
+  #
+  #
   def edit
-    @paste = Paste.find(params[:id])
     respond_to do |format|
-      format.html 
-      format.xml  { render :xml=> "Method Not Allowed", :status=>405 }
+      format.html { render :text => "Method Not Allowed", :status => 405 }
+      format.xml  { render :xml=> "Method Not Allowed", :status => 405 }
     end
   end
 
@@ -104,28 +105,19 @@ class PastesController < ApplicationController
   #
   #
   def update
-    @paste = Paste.find(params[:id])
-
     respond_to do |format|
-      if @paste.update_attributes(params[:paste])
-        flash[:notice] = 'Paste was successfully updated.'
-        format.html { redirect_to(@paste) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @paste.errors, :status => :unprocessable_entity }
-      end
+      format.html { render :text => "Method Not Allowed", :status => 405 }
+      format.xml  { render :xml=> "Method Not Allowed", :status => 405 }
     end
   end
 
-  # DELETE /pastes/1
+  # 
+  #
+  #
   def destroy
-    @paste = Paste.find(params[:id])
-    @paste.destroy
-
     respond_to do |format|
-      format.html { redirect_to(pastes_url) }
-      format.xml  { head :ok }
+      format.html { render :text => "Method Not Allowed", :status => 405 }
+      format.xml  { render :xml=> "Method Not Allowed", :status => 405 }
     end
   end
 
