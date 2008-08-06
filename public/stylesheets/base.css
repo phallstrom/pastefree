@@ -24,6 +24,13 @@ a:link, a:visited, a:hover, a:active {
   text-decoration: underline;
 }
 
+#footer {
+  position: absolute;
+  bottom: 1em;
+  width: 100%;
+  text-align: center;
+}
+
 #content {
   width: 90%;
   margin: 0 auto 50px auto;
