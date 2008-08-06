@@ -123,6 +123,11 @@ form textarea {
   font-size: 2em;
 }
 
+#content .whitebox h2 {
+  font-size: 1.3em;
+  padding-top: 1em;
+}
+
 #content .whitebox #logo_faded {
   float: right;
   padding: 0 0 20px 30px;
