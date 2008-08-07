@@ -1,5 +1,5 @@
 class PastesController < ApplicationController
-  
+
   # 
   #
   #
@@ -10,7 +10,21 @@ class PastesController < ApplicationController
     end
   end
 
-  # GET /pastes/1
+  #
+  #
+  #
+  def mine
+    if @user
+      @pastes = @user.pastes.paginate :page => params[:page], :per_page => 5
+    else
+      render :action => 'no_pastes_for_you'
+      return
+    end
+  end
+
+  # 
+  #
+  #
   def show
     @paste = Paste.find(params[:id])
 
@@ -29,7 +43,6 @@ class PastesController < ApplicationController
   #
   def new
     @paste = Paste.new
-    @user = User.find_by_token(cookies[:token])
     respond_to do |format|
       format.html 
       format.xml  { render :xml=> "Method Not Allowed", :status => 405 }
@@ -130,6 +143,6 @@ class PastesController < ApplicationController
                         :limit => 10)
     render :inline => '<%= model_auto_completer_result(@syntaxes, :name,  params[:syntax][:name].downcase) %>'
   end
-
+  
 
 end

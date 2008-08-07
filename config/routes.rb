@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.root :controller => 'pastes', :action => 'new'
 
-  map.resources :pastes
+  map.resources :pastes, :collection => {:mine => :get}
 
 
   map.statistics '/statistics', :controller => 'home', :action => 'statistics'

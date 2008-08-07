@@ -25,10 +25,14 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #footer {
-  position: absolute;
-  bottom: 1em;
+  position: fixed;
+  bottom: 0;
   width: 100%;
+  padding: 3px 0 1em 0;
   text-align: center;
+  color: #333;
+  background-color: #ccc;
+  border-top: 1px solid #999;
 }
 
 #content {
@@ -72,6 +76,7 @@ form textarea {
 }
 
 #content #pasted_content {
+  position: relative;
   width: 100%;
   min-height: 150px;
   max-height: 800px;
@@ -82,8 +87,19 @@ form textarea {
   overflow: auto;
 }
 
+#content #pasted_content.message {
+  padding: 5px;
+  white-space: pre
+}
+
+#content #pasted_content .logo_faded {
+  position: absolute;
+  top: 0;
+  right: 0
+}
+
 #content #pastes {
-  margin-top: 2em;
+  margin-top: 1em;
 }
 
 #content #pastes .link_to {
@@ -100,15 +116,20 @@ form textarea {
 
 #content #pastes .snippet {
   clear: both;
-  background-color: #fff;
-  width: 100%;
-  min-height: 120px;
   border: 1px solid #999;
+  height: 4em;
   font-size: 12px;
   padding: 5px;
   white-space: pre;
   font-family: 'Monaco', 'Lucida Console', 'Courier New';
   margin-bottom: 2em;
+  overflow: hidden;
+  background: #fff;
+  cursor: pointer;
+}
+
+#content .pagination {
+  text-align: center;
 }
 
 #content .whitebox {
@@ -135,7 +156,7 @@ form textarea {
   padding-top: 1em;
 }
 
-#content .whitebox #logo_faded {
+#content .whitebox .logo_faded {
   float: right;
   padding: 0 0 20px 30px;
 }

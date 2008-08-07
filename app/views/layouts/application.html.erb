@@ -15,6 +15,9 @@
     <div id='header'>
       <div class='links'>
         <%= link_to 'new paste', new_paste_path %>
+        <% if @user %>
+          | <%= link_to 'my pastes', mine_pastes_path %>
+        <% end %>
       </div>
     </div>
 

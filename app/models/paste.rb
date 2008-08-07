@@ -35,4 +35,15 @@ class Paste < ActiveRecord::Base
     Uv.parse( content, "xhtml", syntax.code, true, theme.code)
   end
 
+  #
+  #
+  #
+  def snippet
+    snippet = content.split("\n").slice(0,3).join("\n")
+    if snippet.length > 255
+      snippet[0,255] + "..."
+    else
+      snippet
+    end
+  end
 end
