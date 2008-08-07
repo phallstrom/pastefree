@@ -13,8 +13,6 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
 
-  before_filter :find_user_by_token
-
   private ############################################################
 
   def find_user_by_token

@@ -1,5 +1,7 @@
 class PastesController < ApplicationController
 
+  before_filter :find_user_by_token, :except => ['create']
+
   # 
   #
   #

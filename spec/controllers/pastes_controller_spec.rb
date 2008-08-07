@@ -233,8 +233,7 @@ describe PastesController do
 
       Paste.should_receive(:new).with(params[:paste]).and_return(@paste)
 
-      User.should_receive(:find_by_token).with(nil).and_return(nil)
-      User.should_receive(:find_by_token).with(@user.token).and_return(@user)
+      User.should_receive(:find_by_token).any_number_of_times.and_return(@user)
       
       User.should_not_receive(:find_or_create_by_email).with(@user.email)
       @paste.should_receive(:valid?).and_return(true)
