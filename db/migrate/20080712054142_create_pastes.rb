@@ -4,12 +4,10 @@ class CreatePastes < ActiveRecord::Migration
       t.integer :user_id
       t.integer :theme_id
       t.integer :syntax_id
-      t.text :content
-      t.string :theme, :length => 32
-      t.string :syntax, :length => 32
+      t.boolean :is_approved, :default => false
       t.string :file_path
       t.string :file_type, :length => 64
-      t.boolean :is_approved, :default => false
+      t.text :content
 
       t.timestamps
     end

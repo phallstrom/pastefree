@@ -12,13 +12,6 @@ class Paste < ActiveRecord::Base
   named_scope :approved, :conditions => {:is_approved => true}, :order => 'created_at DESC'
 
   #
-  #
-  #
-  def highlighted_content
-    Uv.parse( content, "xhtml", syntax.code, true, theme.code)
-  end
-
-  #
   # Set a default theme and syntax if none are specified.
   #
   def before_save
@@ -33,6 +26,13 @@ class Paste < ActiveRecord::Base
     user.increment!(:paste_count) unless user.nil?
     syntax.increment!(:paste_count)
     theme.increment!(:paste_count)
+  end
+
+  #
+  #
+  #
+  def highlighted_content
+    Uv.parse( content, "xhtml", syntax.code, true, theme.code)
   end
 
 end
