@@ -16,7 +16,7 @@ class HomeController < ApplicationController
     @user.unapproved_pastes.each do |p|
       p.update_attribute(:is_approved, true)
     end
-    cookies[:token] = @user.token
+    cookies[:token] = { :value => @user.token, :path => '/', :expires => 1.year.from_now } 
     flash[:notice] = 'Your humanity was confirmed. Thank you.'
     redirect_to mine_pastes_path
   end
