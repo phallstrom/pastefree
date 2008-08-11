@@ -21,4 +21,8 @@ class HomeController < ApplicationController
     redirect_to paste_path(@user.pastes.first)
   end
 
+  def time_to_upgrade
+    render :layout => false
+  end
+
 end

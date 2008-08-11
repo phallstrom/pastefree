@@ -13,9 +13,20 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
 
+  before_filter :browser_check, :except => 'time_to_upgrade'
+
   private ############################################################
 
   def find_user_by_token
     @user = User.find_by_token(cookies[:token])
+  end
+
+  def browser_check
+    if request.env['HTTP_USER_AGENT'] =~ /MSIE 6.0/
+      redirect_to time_to_upgrade_path
+      return false
+    end
+
+    return true
   end
 end

@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.statistics '/statistics', :controller => 'home', :action => 'statistics'
   map.about '/about', :controller => 'home', :action => 'about'
+  map.time_to_upgrade '/time-to-upgrade-your-browser', :controller => 'home', :action => 'time_to_upgrade'
   map.confirm_user '/confirm/:token', :controller => 'home', :action => 'confirm_user'
 
   # Install the default routes as the lowest priority.
