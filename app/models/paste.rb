@@ -20,9 +20,9 @@ class Paste < ActiveRecord::Base
   end
 
   # 
-  # Increment the paste counts every time we save a paste.
+  # Increment the paste counts every time we create a paste.
   #
-  def after_save
+  def after_create
     user.increment!(:paste_count) unless user.nil?
     syntax.increment!(:paste_count)
     theme.increment!(:paste_count)
