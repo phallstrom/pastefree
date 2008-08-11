@@ -18,7 +18,7 @@ class HomeController < ApplicationController
     end
     cookies[:token] = @user.token
     flash[:notice] = 'Your humanity was confirmed. Thank you.'
-    redirect_to paste_path(@user.pastes.first)
+    redirect_to mine_pastes_path
   end
 
   def time_to_upgrade
