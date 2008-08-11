@@ -9,6 +9,9 @@ set :use_sudo, false
 set :keep_releases, 2
 set :lsws_cmd, "sudo /usr/local/lsws/bin/lswsctrl"
 
+set :deploy_via, :remote_cache
+set :git_enable_submodules, 1
+
 role :app, "gutsy.pjkh.com"
 role :web, "gutsy.pjkh.com"
 role :db,  "gutsy.pjkh.com", :primary => true, :no_release => true
