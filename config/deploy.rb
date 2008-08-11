@@ -1,6 +1,6 @@
 set :application, "pastefree"
 set :scm, :git
-set :repository,  "/git/#{application}.git"
+set :repository, "/git/#{application}.git"
 set :local_repository, "gutsy:/git/#{application}.git"
 set :deploy_to, "/home/philip/apps/#{application}"
 set :runner, "philip"
@@ -9,8 +9,9 @@ set :use_sudo, false
 set :keep_releases, 2
 set :lsws_cmd, "sudo /usr/local/lsws/bin/lswsctrl"
 
-set :deploy_via, :remote_cache
 set :git_enable_submodules, 1
+
+set :deploy_via, :remote_cache
 
 role :app, "gutsy.pjkh.com"
 role :web, "gutsy.pjkh.com"
@@ -40,3 +41,5 @@ namespace :deploy do
   end
 
 end
+
+
