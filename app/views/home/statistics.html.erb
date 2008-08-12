@@ -23,7 +23,7 @@ On average there have been <%= number_with_delimiter('%.2f' % User.average(:past
 <div style='float: left'>
 <p>
 <h2>Syntaxes</h2>
-<div id="piechart_syntax" style="width:300px; height:200px"></div>
+<div id="piechart_syntax" style="width:500px; height:300px"></div>
 <script type='text/javascript'>
     Event.observe(window, 'load', function() {
 new Proto.Chart($('piechart_syntax'), 
@@ -33,25 +33,7 @@ new Proto.Chart($('piechart_syntax'),
   {
     pies: {show: true, autoScale: true},
     legend: {show: true},
-  });
-});
-</script>
-</p>
-</div>
-
-<div style='float: right'>
-<p>
-<h2>Themes</h2>
-<div id="piechart_theme" style="width:300px; height:200px"></div>
-<script type='text/javascript'>
-    Event.observe(window, 'load', function() {
-new Proto.Chart($('piechart_theme'), 
-  [
-  <%= Theme.find(:all, :conditions => 'paste_count > 0', :order => 'paste_count DESC, name', :limit => 10).map {|e| "{ data: [[0, #{e.paste_count.to_i}]], label: '#{e.name}'}" }.join(',') %>
-  ], 
-  {
-    pies: {show: true, autoScale: true},
-    legend: {show: true},
+    colors: ['#444', '#888', '#aaa', '#666', '#ccc', '#222', '#eee']
   });
 });
 </script>

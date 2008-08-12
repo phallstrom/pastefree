@@ -25,7 +25,6 @@ class Paste < ActiveRecord::Base
   def after_create
     user.increment!(:paste_count) unless user.nil?
     syntax.increment!(:paste_count)
-    theme.increment!(:paste_count)
   end
 
   #

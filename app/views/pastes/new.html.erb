@@ -13,16 +13,11 @@
     <% end %>
 
     <%= belongs_to_auto_completer :paste, :syntax, :name, {:id => 'paste_syntax'}, {:value => 'Syntax', :onclick => 'this.select()', :autocomplete => :off, :title => ""}, {:skip_style => true}  %>
-    <%= f.select :theme_id, Theme.options_for_select %>
 
     <%= f.submit "Paste!" %>
 
     <div id="syntax_instructions" style='display: none'>
-      Begin typing the name of the syntax you wish to use for highlighting, then select from the available options.
-    </div>
-
-    <div id="theme_instructions" style='display: none'>
-      Optionally specify a theme to select the colors your paste.
+      Begin typing the name of the syntax you wish to use for highlighting,<br />then select from the available options.
     </div>
 
     <div id='why_email' style='display: none'>
@@ -52,16 +47,10 @@
   <% content_for :head do %>
     <script type='text/javascript'>
       function toggle_instructions(event) {
-        if ( event.element().id.indexOf('theme') != -1 ) {
-          $('theme_instructions').toggle();
-        }else {
-          $('syntax_instructions').toggle();
-        }
+        $('syntax_instructions').toggle();
       }
       Event.observe(window, 'load', function() {  
-          Event.observe($('paste_theme_id'), "mouseover", toggle_instructions);
           Event.observe($('paste_syntax_tf'), "mouseover", toggle_instructions);
-          Event.observe($('paste_theme_id'), "mouseout", toggle_instructions);
           Event.observe($('paste_syntax_tf'), "mouseout", toggle_instructions);
       });
     </script>
