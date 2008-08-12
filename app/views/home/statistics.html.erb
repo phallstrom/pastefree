@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'protochart/ProtoChart.js' %>
+  <!--[if IE]><%= javascript_include_tag 'protochart/excanvas-compressed.js' %><![endif]--> 
+<% end %>
 <div class='whitebox'>
   <%= image_tag "logo_faded.png", :class => 'logo_faded' %>
 
@@ -5,7 +9,7 @@
 
 <p>
 Paste Free is a fairly new application so the statistics won't be very interesting
-until there is additional data to look at.  However, here's a taste.
+until there is additional data to look at.
 </p>
 
 <p>
@@ -15,14 +19,47 @@ there have been <%= number_with_delimiter(User.sum(:paste_count)) %> pastes made
 On average there have been <%= number_with_delimiter('%.2f' % User.average(:paste_count)) %> posts per user.
 </p>
 
-<p>
-The most used syntaxes are:
-<%= Syntax.find(:all, :order => 'paste_count DESC, name', :limit => 3).map {|e| e.name}.join(', ') %>.
-</p>
 
+<div style='float: left'>
 <p>
-The most used themes are:
-<%= Theme.find(:all, :order => 'paste_count DESC, name', :limit => 3).map {|e| e.name}.join(', ') %>.
+<h2>Syntaxes</h2>
+<div id="piechart_syntax" style="width:300px; height:200px"></div>
+<script type='text/javascript'>
+    Event.observe(window, 'load', function() {
+new Proto.Chart($('piechart_syntax'), 
+  [
+  <%= Syntax.find(:all, :conditions => 'paste_count > 0', :order => 'paste_count DESC, name', :limit => 10).map {|e| "{ data: [[0, #{e.paste_count.to_i}]], label: '#{e.name}'}" }.join(',') %>
+  ], 
+  {
+    pies: {show: true, autoScale: true},
+    legend: {show: true},
+  });
+});
+</script>
 </p>
+</div>
+
+<div style='float: right'>
+<p>
+<h2>Themes</h2>
+<div id="piechart_theme" style="width:300px; height:200px"></div>
+<script type='text/javascript'>
+    Event.observe(window, 'load', function() {
+new Proto.Chart($('piechart_theme'), 
+  [
+  <%= Theme.find(:all, :conditions => 'paste_count > 0', :order => 'paste_count DESC, name', :limit => 10).map {|e| "{ data: [[0, #{e.paste_count.to_i}]], label: '#{e.name}'}" }.join(',') %>
+  ], 
+  {
+    pies: {show: true, autoScale: true},
+    legend: {show: true},
+  });
+});
+</script>
+</p>
+</div>
+
+<br clear="all"/>
+
+
 
 </div>
