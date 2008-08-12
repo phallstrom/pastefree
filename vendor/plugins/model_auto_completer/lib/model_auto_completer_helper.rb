@@ -199,12 +199,17 @@ module ModelAutoCompleterHelper
 private
 
   def determine_field_ids(options)
-    hf_id = 'model_auto_completer_hf'
-    tf_id = 'model_auto_completer_tf'
-    if options[:append_random_suffix]
-      rand_id = Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by {rand}.join)
-      hf_id << "_#{rand_id}"
-      tf_id << "_#{rand_id}"
+    if options[:id]
+      hf_id = "#{options[:id]}_hf"
+      tf_id = "#{options[:id]}_tf"
+    else
+      hf_id = 'model_auto_completer_hf'
+      tf_id = 'model_auto_completer_tf'
+      if options[:append_random_suffix]
+        rand_id = Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by {rand}.join)
+        hf_id << "_#{rand_id}"
+        tf_id << "_#{rand_id}"
+      end
     end
     return hf_id, tf_id
   end

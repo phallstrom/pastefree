@@ -64,7 +64,9 @@ form textarea {
   height: 30em;
 }
 
-#content #new_paste #why_email {
+#content #new_paste #why_email,
+#content #new_paste #syntax_instructions,
+#content #new_paste #theme_instructions {
   float: right;
   width: 70%;
   margin-top: 0.5em;

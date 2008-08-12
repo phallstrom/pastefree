@@ -12,13 +12,20 @@
       <%= hidden_field_tag :token, @user.token %>
     <% end %>
 
-    <%= belongs_to_auto_completer :paste, :syntax, :name, {}, {:value => 'Syntax', :onclick => 'this.select()', :autocomplete => :off}, {:skip_style => true}  %>
-
+    <%= belongs_to_auto_completer :paste, :syntax, :name, {:id => 'paste_syntax'}, {:value => 'Syntax', :onclick => 'this.select()', :autocomplete => :off, :title => ""}, {:skip_style => true}  %>
     <%= f.select :theme_id, Theme.options_for_select %>
 
     <%= f.submit "Paste!" %>
 
-    <div id="why_email" style="display: none">
+    <div id="syntax_instructions" style='display: none'>
+      Begin typing the name of the syntax you wish to use for highlighting, then select from the available options.
+    </div>
+
+    <div id="theme_instructions" style='display: none'>
+      Optionally specify a theme to select the colors your paste.
+    </div>
+
+    <div id='why_email' style='display: none'>
       Your email address is needed to verify your humanity. Once provided, a
       cookie is set and you won't be asked again unless the cookie is deleted.
       I have no interest in sending you email. I may use it for some anonymous statistical purposes.
@@ -39,4 +46,24 @@
 
   </div>
 
+<% end %>
+
+<% unless @user && @user.paste_count >= 3 %>
+  <% content_for :head do %>
+    <script type='text/javascript'>
+      function toggle_instructions(event) {
+        if ( event.element().id.indexOf('theme') != -1 ) {
+          $('theme_instructions').toggle();
+        }else {
+          $('syntax_instructions').toggle();
+        }
+      }
+      Event.observe(window, 'load', function() {  
+          Event.observe($('paste_theme_id'), "mouseover", toggle_instructions);
+          Event.observe($('paste_syntax_tf'), "mouseover", toggle_instructions);
+          Event.observe($('paste_theme_id'), "mouseout", toggle_instructions);
+          Event.observe($('paste_syntax_tf'), "mouseout", toggle_instructions);
+      });
+    </script>
+  <% end %>
 <% end %>
