@@ -16,8 +16,28 @@
     <div id='header'>
       <div class='links'>
         <%= link_to 'new paste', new_paste_path %>
+        |
         <% if @user %>
-          | <%= link_to 'my pastes', mine_pastes_path %>
+          <%= link_to 'my pastes', mine_pastes_path %>
+          | 
+          <%= link_to 'sign out', signout_path %>
+        <% else %>
+          <%= link_to_function 'sign in', "$('signin_success').hide(); $('signin_failure').hide();" + visual_effect(:toggle_blind, :signin_form, :duration => 0.3) %>
+          <div id='signin_form' style='display:none'>
+            <% form_remote_tag :url => signin_path, 
+                               :html => {:action => signin_path},
+                               :success => "$('signin_form').hide(); $('signin_success').show()",
+                               :failure => "$('signin_form').hide(); $('signin_failure').show()"  do %>
+              <%= text_field_tag :email, "(enter your email)", :onclick => 'this.select()' %>
+              <%= submit_tag 'Sign In' %>
+            <% end %>
+          </div>
+          <div id='signin_success' style='display:none'>
+            A confirmation email has been sent. Please check your inbox.
+          </div>
+          <div id='signin_failure' style='display:none'>
+            An error occurred. Maybe a invalid email address? Please try again later.
+          </div>
         <% end %>
       </div>
     </div>
