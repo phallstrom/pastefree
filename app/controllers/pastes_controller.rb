@@ -1,6 +1,6 @@
 class PastesController < ApplicationController
 
-  before_filter :find_user_by_token, :except => ['create']
+  caches_page :show
 
   # 
   #
@@ -12,29 +12,14 @@ class PastesController < ApplicationController
     end
   end
 
-  #
-  #
-  #
-  def mine
-    if @user
-      @pastes = @user.pastes.paginate :page => params[:page], :per_page => 5
-    else
-      render :action => 'no_pastes_for_you'
-      return
-    end
-  end
-
   # 
   #
   #
   def show
     @paste = Paste.find(params[:id])
 
-    action = "show"
-    action = "show_pending" if !@paste.is_approved?
-
     respond_to do |format|
-      format.html { render :action => action }
+      format.html
       format.text  { render :text => @paste.content }
       format.xml  { render :xml=> "Method Not Allowed", :status => 405 }
     end
@@ -66,51 +51,15 @@ class PastesController < ApplicationController
   #
   def create
     @paste = Paste.new(params[:paste])
-    @user = User.find_by_token(params[:token])
-    @errors = []
-
-    @errors << @paste.errors.full_messages unless @paste.valid?
-    @errors << "Your email address is required" if params[:email].blank? && @user.nil?
-
-    unless @errors.empty?
-      respond_to do |format|
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @errors, :status => :unprocessable_entity }
-      end
-      return
-    end
-
-    if @user.nil?
-      @user = User.find_or_create_by_email(params[:email])
-
-      unless @user.valid?
-        @errors << @user.errors.full_messages
-        respond_to do |format|
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @errors, :status => :unprocessable_entity }
-        end
-        return
-      end
-
-      # force them to reconfirm
-      @user.update_attribute(:is_confirmed, false) unless @user.new_record?
-
-      ActionMailer::Base.default_url_options[:host] = request.host_with_port # an evil necessity
-      Mailer.deliver_user_confirmation(@user)
-    end
-
-    @paste.is_approved = @user.is_confirmed?
-    @paste.user = @user
+    @paste.is_approved = true
 
     respond_to do |format|
       if @paste.save
         format.html { redirect_to(@paste) }
         format.xml  { render :xml => @paste, :status => :created, :location => @paste }
       else
-        @errors << @paste.errors.full_messages 
-        @errors << @user.errors.full_messages
         format.html { render :action => "new" }
-        format.xml  { render :xml => @errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @paste.errors, :status => :unprocessable_entity }
       end
     end
   end

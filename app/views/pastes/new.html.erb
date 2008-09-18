@@ -4,32 +4,12 @@
   <%= f.text_area :content %>
 
   <div class='below_pasted_content'>
-    <% if @user.nil? || !@user.valid? %>
-        <%= f.label :email, "Your Email Address" %>
-        (<%= link_to_function "why?", "$('why_email').toggle()", :title => "Click to learn why your email address is needed." %>)
-        <%= text_field_tag :email, params[:email] %>
-    <% else %>
-      <%= hidden_field_tag :token, @user.token %>
-    <% end %>
-
     <%= belongs_to_auto_completer :paste, :syntax, :name, {:id => 'paste_syntax'}, {:value => 'Syntax', :onclick => 'this.select()', :autocomplete => :off, :title => ""}, {:skip_style => true}  %>
 
     <%= f.submit "Paste!" %>
 
     <div id="syntax_instructions" style='display: none'>
       Begin typing the name of the syntax you wish to use for highlighting,<br />then select from the available options.
-    </div>
-
-    <div id='why_email' style='display: none'>
-      Your email address is needed to verify your humanity. Once provided, a
-      cookie is set and you won't be asked again unless the cookie is deleted.
-      It also is the key to retrieving your paste history.
-      I have no interest in sending you email. I may use it for some anonymous statistical purposes.
-      If this makes you uncomfortable there are 
-      <%= link_to 'plenty', 'http://pastie.org/' %>
-      <%= link_to 'of', 'http://slexy.org/' %>
-      <%= link_to 'other', 'http://rafb.net/paste/' %>
-      <%= link_to 'options', 'http://pastebin.com/' %>.
     </div>
 
     <% unless @errors.blank? %>
@@ -44,16 +24,15 @@
 
 <% end %>
 
-<% unless @user && @user.paste_count >= 3 %>
-  <% content_for :head do %>
-    <script type='text/javascript'>
-      function toggle_instructions(event) {
-        $('syntax_instructions').toggle();
-      }
-      Event.observe(window, 'load', function() {  
-          Event.observe($('paste_syntax_tf'), "mouseover", toggle_instructions);
-          Event.observe($('paste_syntax_tf'), "mouseout", toggle_instructions);
-      });
-    </script>
-  <% end %>
+<% content_for :head do %>
+  <script type='text/javascript'>
+    function toggle_instructions(event) {
+      $('syntax_instructions').toggle();
+    }
+    Event.observe(window, 'load', function() {  
+        Event.observe($('paste_syntax_tf'), "mouseover", toggle_instructions);
+        Event.observe($('paste_syntax_tf'), "mouseout", toggle_instructions);
+    });
+  </script>
 <% end %>
+

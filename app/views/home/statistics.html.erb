@@ -13,27 +13,32 @@ until there is additional data to look at.
 </p>
 
 <p>
-Since <%= User.find(:first, :order => 'created_at').created_at.to_formatted_s(:mdy) %>
-there have been <%= number_with_delimiter(User.sum(:paste_count)) %> pastes made by
-<%= number_with_delimiter(User.count) -%> users.
-On average there have been <%= number_with_delimiter('%.2f' % User.average(:paste_count)) %> posts per user.
+Since <%= Paste.find(:first, :order => 'created_at').created_at.to_formatted_s(:mdy) %>
+there have been <%= number_with_delimiter(Paste.count) %> pastes made.
 </p>
 
 
 <div style='float: left'>
 <p>
-<h2>Syntaxes</h2>
+<h2>Popular Syntaxes</h2>
 <div id="piechart_syntax" style="width:500px; height:300px"></div>
 <script type='text/javascript'>
     Event.observe(window, 'load', function() {
 new Proto.Chart($('piechart_syntax'), 
   [
-  <%= Syntax.find(:all, :conditions => 'paste_count > 0', :order => 'paste_count DESC, name', :limit => 10).map {|e| "{ data: [[0, #{e.paste_count.to_i}]], label: '#{e.name}'}" }.join(',') %>
+  <%= Syntax.find(:all, 
+                  :conditions => 'paste_count > 0', 
+                  :order => 'paste_count DESC, name', 
+                  :limit => 10).map {|e| "{ data: [[0, #{e.paste_count.to_i}]], label: '#{e.name}'}" }.join(',') %>
+  , { data: [[0, <%= Syntax.sum(:paste_count, 
+                   :conditions => 'paste_count > 0', 
+                   :order => 'paste_count DESC, name', 
+                   :offset => 10).to_i -%>]], label: 'Other'}
   ], 
   {
     pies: {show: true, autoScale: true},
     legend: {show: true},
-    colors: ['#444', '#888', '#aaa', '#666', '#ccc', '#222', '#eee']
+    xcolors: ['#444', '#888', '#aaa', '#666', '#ccc', '#222', '#eee']
   });
 });
 </script>

@@ -2,7 +2,6 @@ require 'uv'
 
 class Paste < ActiveRecord::Base
 
-  belongs_to :user
   belongs_to :syntax
   belongs_to :theme
 
@@ -24,7 +23,6 @@ class Paste < ActiveRecord::Base
   # Increment the paste counts every time we create a paste.
   #
   def after_create
-    user.increment!(:paste_count) unless user.nil?
     syntax.increment!(:paste_count)
   end
 

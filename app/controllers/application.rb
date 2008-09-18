@@ -19,10 +19,6 @@ class ApplicationController < ActionController::Base
 
   private ############################################################
 
-  def find_user_by_token
-    @user = User.find_by_token(cookies[:token])
-  end
-
   def browser_check
     if request.env['HTTP_USER_AGENT'] =~ /MSIE 6.0/
       redirect_to time_to_upgrade_path
