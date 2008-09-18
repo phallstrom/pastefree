@@ -1,0 +1,72 @@
+pre.railscasts .DiffHeader {
+   background-color: #2F33AB;
+}
+pre.railscasts .LibraryType {
+   color: #6E9CBE;
+}
+pre.railscasts .Constant {
+   color: #6D9CBE;
+}
+pre.railscasts .DiffRemove {
+   background-color: #660000;
+   color: #E6E1DC;
+}
+pre.railscasts .Number {
+   color: #A5C261;
+}
+pre.railscasts .Source {
+   background-color: #232323;
+}
+pre.railscasts .line-numbers {
+   background-color: #5A647E;
+   color: #FFFFFF;
+}
+pre.railscasts .DiffAdd {
+   background-color: #144212;
+   color: #E6E1DC;
+}
+pre.railscasts .MarkupTag {
+   color: #E8BF6A;
+}
+pre.railscasts .StringInterpolation {
+   color: #519F50;
+}
+pre.railscasts .LibraryConstant {
+   color: #A5C261;
+}
+pre.railscasts .ConstantBuiltIn {
+   color: #6E9CBE;
+}
+pre.railscasts .ClassDefinition {
+   color: #FFFFFF;
+}
+pre.railscasts .FunctionDefinition {
+   color: #FFC66D;
+}
+pre.railscasts .ConstantOtherVariable {
+   color: #DA4939;
+}
+pre.railscasts {
+   background-color: #2B2B2B;
+   color: #E6E1DC;
+}
+pre.railscasts .Invalid {
+   background-color: #990000;
+   color: #FFFFFF;
+}
+pre.railscasts .LibraryFunction {
+   color: #DA4939;
+}
+pre.railscasts .String {
+   color: #A5C261;
+}
+pre.railscasts .Keyword {
+   color: #CC7833;
+}
+pre.railscasts .Variable {
+   color: #D0D0FF;
+}
+pre.railscasts .Comment {
+   color: #BC9458;
+   font-style: italic;
+}
