@@ -30,10 +30,6 @@ new Proto.Chart($('piechart_syntax'),
                   :conditions => 'paste_count > 0', 
                   :order => 'paste_count DESC, name', 
                   :limit => 10).map {|e| "{ data: [[0, #{e.paste_count.to_i}]], label: '#{e.name}'}" }.join(',') %>
-  , { data: [[0, <%= Syntax.sum(:paste_count, 
-                   :conditions => 'paste_count > 0', 
-                   :order => 'paste_count DESC, name', 
-                   :offset => 10).to_i -%>]], label: 'Other'}
   ], 
   {
     pies: {show: true, autoScale: true},
