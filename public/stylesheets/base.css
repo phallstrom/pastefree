@@ -89,6 +89,10 @@ form textarea {
   overflow: auto;
 }
 
+#content #pasted_content pre.railscasts {
+  background: #222;
+}
+
 #content #pasted_content.message {
   padding: 5px;
   white-space: pre
