@@ -50,6 +50,9 @@ class PastesController < ApplicationController
   #
   #
   def create
+    unless params[:paste][:syntax].blank?
+      params[:paste][:syntax] = Syntax.find_by_code(params[:paste][:syntax]) || nil
+    end
     @paste = Paste.new(params[:paste])
     @paste.is_approved = true
 
