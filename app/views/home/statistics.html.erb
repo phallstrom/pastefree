@@ -25,14 +25,8 @@ there have been <%= number_with_delimiter(Paste.count) %> pastes made.
 <script type='text/javascript'>
     Event.observe(window, 'load', function() {
 new Proto.Chart($('piechart_syntax'), 
-  [
-  <%= Syntax.find(:all, 
-                  :conditions => 'paste_count > 0', 
-                  :order => 'paste_count DESC, name', 
-                  :limit => 10).map {|e| "{ data: [[0, #{e.paste_count.to_i}]], label: '#{e.name}'}" }.join(',') %>
-  ], 
-  {
-    pies: {show: true, autoScale: true},
+  [ <%= Syntax.data_for_chart %> ], 
+  { pies: {show: true, autoScale: true},
     legend: {show: true},
     xcolors: ['#444', '#888', '#aaa', '#666', '#ccc', '#222', '#eee']
   });
