@@ -3,25 +3,75 @@
 
 <h1>About Paste Free</h1>
 
-<h2>Who?</h2>
+<h2>Why?</h2>
 <p>
   Paste Free is a product of <%= link_to 'PJKH, LLC', 'http://www.pjkh.com', :target => 'pop' %>.
 </p>
-
-<h2>Why?</h2>
 <p>
-  I know there are a lot of other 'paste bin' applications out there and yes I
-  am reinventing the wheel.  However, I have a hard time remembering their URL
-  and none of them we're written by me. I also plan to add some features I
-  haven't seen in the other applications.
-  <br />
-  <br />
+  I know there are a lot of other 
+  <%= link_to 'pastebin', 'http://pastebin.com/', :target => 'pop' %>
+  <%= link_to 'applications', 'http://pastie.org/', :target => 'pop' %>
+  <%= link_to 'out', 'http://slexy.org/', :target => 'pop' %>
+  <%= link_to 'there', 'http://gist.github.com/', :target => 'pop' %>
+  and yes I am reinventing the wheel.  However, I have a hard time remembering
+  their URL and none of them we're written by me :-) I also plan to add some
+  features I haven't seen in the other applications.
+</p>
+<p>
   More importantly though Paste Free provides potential clients a fairly
-  simple, self contained application developed completely by myself.  I can
+  simple, self contained application completely developed by myself.  I can
   provide the source code without worrying about violating confidentiality
   agreements. I can implement things the way I would if given the time and
-  resources.
+  resources. So it's a show case of sorts.
 </p>
+
+<h2>Command Line Interface</h2>
+<p>
+If you're interested there is a <%= link_to 'command line application', 'pastefree.rb' %> that works with Paste Free.
+It requires a couple of Ruby Gems -- if you don't have them it will complain about it. It will paste any standard input passed to it
+to Paste Free.  If successful it will output the Paste Free URL.  It will also accept an argument specifying the syntax to use. 
+Currently it isn't very lenient, but this will be improving.  Examples:
+<pre>
+    $ df -h | pastefree
+    http://pastefree.pjkh.com/pastes/15
+    $ cat sample.html | pastefree html
+    http://pastefree.pjkh.com/pastes/16
+</pre>
+</p>
+
+<h2>Statistics</h2>
+
+<p>
+Paste Free is a fairly new application so the statistics won't be very interesting
+until there is additional data to look at.
+
+Since <%= Paste.find(:first, :order => 'created_at').created_at.to_formatted_s(:mdy) %>
+there have been <%= number_with_delimiter(Paste.count) %> pastes made.
+</p>
+
+
+
+<h2>Popular Syntaxes</h3>
+<p>
+Paste Free supports <%= pluralize(Syntax.count, 'syntax') %>.  The following are the more popular ones.
+</p>
+  
+<% content_for :head do %>
+  <%= javascript_include_tag 'protochart/ProtoChart.js' %>
+  <!--[if IE]><%= javascript_include_tag 'protochart/excanvas-compressed.js' %><![endif]--> 
+<% end %>
+
+<div id="piechart_syntax" style="width:500px; height:300px"></div>
+<script type='text/javascript'>
+    Event.observe(window, 'load', function() {
+new Proto.Chart($('piechart_syntax'), 
+  [ <%= Syntax.data_for_chart %> ], 
+  { pies: {show: true, autoScale: true},
+    legend: {show: true},
+    xcolors: ['#444', '#888', '#aaa', '#666', '#ccc', '#222', '#eee']
+  });
+});
+</script>
 
 
 </div>
