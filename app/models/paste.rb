@@ -6,7 +6,9 @@ class Paste < ActiveRecord::Base
   belongs_to :theme
 
   validates_presence_of :content
+  validates_length_of :content, :maximum => 10_000
   validates_presence_of :file_type, :unless => Proc.new {|p| p.file_path.blank?}
+
 
   named_scope :recent, :conditions => {:is_approved => true}, :order => 'created_at DESC', :limit => 3
   named_scope :approved, :conditions => {:is_approved => true}, :order => 'created_at DESC'

@@ -12,11 +12,11 @@
       Begin typing the name of the syntax you wish to use for highlighting,<br />then select from the available options.
     </div>
 
-    <% unless @errors.blank? %>
+    <% unless @paste.errors.blank? %>
       <div id='errors'>
         <b>Uh-oh. Errors.</b>
         <ul>
-          <li><%= @errors.join('.</li><li>') %>.</li>
+          <li><%= @paste.errors.full_messages.join('.</li><li>') %>.</li>
         </ul>
     <% end %>
 
