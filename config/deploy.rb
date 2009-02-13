@@ -1,7 +1,7 @@
 set :application, "pastefree"
 set :scm, :git
-set :repository, "/git/#{application}.git"
-set :local_repository, "gutsy:/git/#{application}.git"
+set :repository, "git://github.com/phallstrom/pastefree.git"
+set :local_repository, "git://github.com/phallstrom/pastefree.git"
 set :deploy_to, "/home/philip/apps/#{application}"
 set :runner, "philip"
 set :use_sudo, false
