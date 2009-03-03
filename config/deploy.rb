@@ -7,37 +7,27 @@ set :runner, "philip"
 set :use_sudo, false
 
 set :keep_releases, 2
-set :lsws_cmd, "sudo /usr/local/lsws/bin/lswsctrl"
 
 set :git_enable_submodules, 1
 
 set :deploy_via, :remote_cache
 
-role :app, "gutsy.pjkh.com"
-role :web, "gutsy.pjkh.com"
-role :db,  "gutsy.pjkh.com", :primary => true, :no_release => true
+role :app, "sheldon.pjkh.com"
+role :web, "sheldon.pjkh.com"
+role :db,  "sheldon.pjkh.com", :primary => true, :no_release => true
 
 namespace :deploy do
 
-  desc "Start LiteSpeed Web Server."
-  task :start, :roles => :app do
+  desc "Restarts your application."
+  task :restart, :roles => :app, :except => { :no_release => true } do
     as = fetch(:runner, "app")
     via = fetch(:run_method, :sudo)
-    invoke_command "#{lsws_cmd} start", :via => via, :as => as
+    invoke_command "touch #{current_path}/tmp/restart.txt", :via => via, :as => as
   end
 
-  desc "Stop LiteSpeed Web Server."
-  task :stop, :roles => :app do
-    as = fetch(:runner, "app")
-    via = fetch(:run_method, :sudo)
-    invoke_command "#{lsws_cmd} stop", :via => via, :as => as
-  end
-
-  desc "Restart LiteSpeed Web Server."
-  task :restart, :roles => :app do
-    as = fetch(:runner, "app")
-    via = fetch(:run_method, :sudo)
-    invoke_command "#{lsws_cmd} restart", :via => via, :as => as
+  [:start, :stop].each do |t|
+    desc "No-op with mod_rails."
+    task t, :roles => :app do ; end
   end
 
 end
