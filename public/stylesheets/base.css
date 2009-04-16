@@ -53,6 +53,7 @@ button
   background-color: #eee;
   border: 1px solid #999;
   font-size: 12px;
+  padding: 2px;
 }
 
 form textarea {
