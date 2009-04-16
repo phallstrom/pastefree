@@ -9,9 +9,8 @@ class Paste < ActiveRecord::Base
   validates_attachment_content_type :image, :content_type => /image/
   validates_attachment_size :image, :less_than => 1.megabyte
 
-
+  validates_presence_of :content, :if => Proc.new { |p| !p.image.file? }
   validates_length_of :content, :maximum => 10_000, :allow_blank => true
-
 
   named_scope :recent, :conditions => {:is_approved => true}, :order => 'created_at DESC', :limit => 3
   named_scope :approved, :conditions => {:is_approved => true}, :order => 'created_at DESC'

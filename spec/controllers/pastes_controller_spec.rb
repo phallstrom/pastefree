@@ -189,14 +189,14 @@ describe PastesController do
       post :create, params
     end
 
-    it "should not fail on an empty paste" do
+    it "should fail on an empty paste" do
       params = {:paste => {'content' => ''}}
       Paste.should_receive(:new).with(params[:paste]).and_return(@paste)
       @paste.should_receive(:is_approved=).with(true)
-      @paste.should_receive(:save).and_return(true)
+      @paste.should_receive(:save).and_return(false)
 
       do_post params
-      response.should redirect_to(paste_url("1"))
+      response.should render_template('new')
     end
 
     it "should create a new paste with content" do
