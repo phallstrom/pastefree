@@ -1,12 +1,20 @@
 <% form_for(@paste, :html => {:multipart => true}) do |f| %>
-  <%#= f.file_field :file_path %>
 
   <%= f.text_area :content %>
 
   <div class='below_pasted_content'>
+    <div class='file'>
+      <%= f.file_field :image %>
+      <div id="file_instructions" style='display: none'>
+        You can optionally upload an image up to 1 megabyte in size.
+        <br />
+        Images will be removed after 7 days.
+      </div>
+    </div> 
     <%= belongs_to_auto_completer :paste, :syntax, :name, {:id => 'paste_syntax'}, {:value => 'Syntax', :onclick => 'this.select()', :autocomplete => :off, :title => ""}, {:skip_style => true}  %>
-
     <%= f.submit "Paste!" %>
+
+
 
     <div id="syntax_instructions" style='display: none'>
       Begin typing the name of the syntax you wish to use for highlighting,<br />then select from the available options.
@@ -22,17 +30,5 @@
 
   </div>
 
-<% end %>
-
-<% content_for :head do %>
-  <script type='text/javascript'>
-    function toggle_instructions(event) {
-      $('syntax_instructions').toggle();
-    }
-    Event.observe(window, 'load', function() {  
-        Event.observe($('paste_syntax_tf'), "mouseover", toggle_instructions);
-        Event.observe($('paste_syntax_tf'), "mouseout", toggle_instructions);
-    });
-  </script>
 <% end %>
 

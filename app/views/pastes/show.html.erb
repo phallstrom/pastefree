@@ -6,15 +6,21 @@
 
 
 <div id='pasted_content'>
-  <%= image_tag "logo_faded.png", :class => 'logo_faded' -%>
-  <%= @paste.highlighted_content -%>
+  <%= image_tag "logo_faded.png", :class => 'logo_faded' %>
+  <%= @paste.highlighted_content unless @paste.content.blank? %>
+  <% if @paste.image.exists? %>
+    <%= clear('1em') unless @paste.content.blank? %>
+    <%= image_tag @paste.image.url, :class => 'pasted' %>
+  <% end %>
 </div>
 
 <div style='float: right'>
   <%= button_to 'text version', formatted_paste_path(@paste, :txt), :method => :get, :title => 'click for raw version of paste' %>
 </div>
+
 <div style='float: right; margin-right: 5px'>
   <% form_tag do %>
     <%= select_tag :theme, options_for_select(Theme.options_for_select(:name, :code)), :onchange => 'switch_theme_to(this.options[this.selectedIndex].value)', :title => 'view this paste using a different theme' %>
   <% end %>
 </div>
+

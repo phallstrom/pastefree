@@ -8,7 +8,7 @@ describe PastesController do
     end
   
     it "should map { :controller => 'pastes', :action => 'new' } to /" do
-      route_for(:controller => "pastes", :action => "new").should == "/"
+      route_for(:controller => "pastes", :action => "new").should == "/pastes/new"
     end
   
     it "should map { :controller => 'pastes', :action => 'show', :id => 1 } to /pastes/1" do

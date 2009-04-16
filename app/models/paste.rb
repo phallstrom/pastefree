@@ -5,9 +5,12 @@ class Paste < ActiveRecord::Base
   belongs_to :syntax
   belongs_to :theme
 
-  validates_presence_of :content
-  validates_length_of :content, :maximum => 10_000
-  validates_presence_of :file_type, :unless => Proc.new {|p| p.file_path.blank?}
+  has_attached_file :image
+  validates_attachment_content_type :image, :content_type => /image/
+  validates_attachment_size :image, :less_than => 1.megabyte
+
+
+  validates_length_of :content, :maximum => 10_000, :allow_blank => true
 
 
   named_scope :recent, :conditions => {:is_approved => true}, :order => 'created_at DESC', :limit => 3
@@ -25,7 +28,7 @@ class Paste < ActiveRecord::Base
   # Increment the paste counts every time we create a paste.
   #
   def after_create
-    syntax.increment!(:paste_count)
+    self.syntax.increment!(:paste_count)
   end
 
   #

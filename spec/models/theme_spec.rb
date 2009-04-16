@@ -49,23 +49,4 @@ describe Theme do
     }.should change(Theme, :count).by(1)
   end
 
-  it "should increment the paste_count" do
-    @theme.save
-
-    Paste.create(:theme => @theme, :content => 'Testing 1')
-    Paste.count.should == 1
-    @theme.reload
-    @theme.paste_count.should == 1
-
-    Paste.create(:theme => @theme, :content => 'Testing 2')
-    Paste.count.should == 2
-    @theme.reload
-    @theme.paste_count.should == 2
-
-    # paste count never decrements, it's like an odometer
-    Paste.last.destroy
-    Paste.count.should == 1
-    @theme.reload
-    @theme.paste_count.should == 2
-  end
 end

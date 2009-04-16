@@ -90,6 +90,10 @@ form textarea {
   overflow: auto;
 }
 
+#content #pasted_content img.pasted {
+  vertical-align: top;
+}
+
 #content #pasted_content pre.railscasts {
   background: #222;
 }
@@ -171,6 +175,12 @@ form textarea {
 #content .below_pasted_content {
   float: right;
   text-align: right;
+  width: 100%;
+}
+
+#content .below_pasted_content div.file {
+  float: left;
+  text-align: left;
 }
 
 /************************************************************/

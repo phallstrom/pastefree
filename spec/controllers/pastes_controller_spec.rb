@@ -69,12 +69,6 @@ describe PastesController do
       response.should render_template('show')
     end
   
-    it "should render show_pending template if not approved" do
-      @paste.stub!(:is_approved?).and_return(false)
-      do_get
-      response.should render_template('show_pending')
-    end
-
     it "should find the paste requested" do
       Paste.should_receive(:find).with("1").and_return(@paste)
       do_get
@@ -129,9 +123,7 @@ describe PastesController do
 
     before(:each) do
       @paste = mock_model(Paste)
-      @user = mock_model(User)
       Paste.stub!(:new).and_return(@paste)
-      Paste.stub!(:find_by_token).and_return(@user)
     end
   
     def do_get
@@ -190,74 +182,30 @@ describe PastesController do
 
     before(:each) do
       @paste = mock_model(Paste, :to_param => "1", :content => 'Content 1')
-      @user = mock_model(User, :to_param => "1", :email => 'philip@pjkh.com', :token => 'token_for_philip', :generate_token => 'token_for_philip')
       Paste.stub!(:new).and_return(@paste)
-      User.stub!(:find_by_token).with(@user.token).and_return(@user)
     end
     
     def do_post(params)
       post :create, params
     end
 
-    it "should fail on an empty paste" do
-      params = {:paste => {'content' => ''}, :email => @user.email, :token => @user.token}
+    it "should not fail on an empty paste" do
+      params = {:paste => {'content' => ''}}
       Paste.should_receive(:new).with(params[:paste]).and_return(@paste)
-      @paste.should_receive(:valid?).and_return(false)
-      @paste.errors.should_receive(:full_messages)
-      do_post params
-      response.should render_template('new')
-      assigns[:errors].should_not be_empty
-    end
-
-    it "should fail on a missing email address" do
-      params = {:paste => {'content' => 'foo bar'}, :email => '', :token => ''}
-      Paste.should_receive(:new).with(params[:paste]).and_return(@paste)
-      @paste.should_receive(:valid?).and_return(true)
-      do_post params
-      response.should render_template('new')
-      assigns[:errors].should_not be_empty
-    end
-
-    it "should fail on a bogus email address" do
-      params = {:paste => {'content' => 'foo bar'}, :email => 'bogus', :token => ''}
-      Paste.should_receive(:new).with(params[:paste]).and_return(@paste)
-      @paste.should_receive(:valid?).and_return(true)
-      do_post params
-      response.should render_template('new')
-      assigns[:errors].should_not be_empty
-    end
-
-    it "should create a new paste w/ a user" do
-      params = {:paste => {'content' => 'foo bar'}, :token => 'token_for_philip'}
-      @user.stub!(:is_confirmed?).and_return(true)
-
-      Paste.should_receive(:new).with(params[:paste]).and_return(@paste)
-
-      User.should_receive(:find_by_token).any_number_of_times.and_return(@user)
-      
-      User.should_not_receive(:find_or_create_by_email).with(@user.email)
-      @paste.should_receive(:valid?).and_return(true)
       @paste.should_receive(:is_approved=).with(true)
-      @paste.should_receive(:user=).with(@user)
       @paste.should_receive(:save).and_return(true)
 
       do_post params
       response.should redirect_to(paste_url("1"))
     end
 
-    it "should create a new paste w/o a user" do
-      params = {:paste => {'content' => 'foo bar'}, :email => 'philip@pjkh.com'}
+    it "should create a new paste with content" do
+      params = {:paste => {'content' => 'foo bar'}}
       @user.stub!(:is_confirmed?).and_return(false)
 
       Paste.should_receive(:new).with(params[:paste]).and_return(@paste)
-      User.should_receive(:find_or_create_by_email).with(@user.email).and_return(@user)
-      @user.should_receive(:valid?).and_return(true)
-      @user.should_receive(:update_attribute).with(:is_confirmed, false)
-      @paste.should_receive(:valid?).and_return(true)
-      @paste.should_receive(:is_approved=).with(false)
-      @paste.should_receive(:user=).with(@user)
+      @paste.should_receive(:is_approved=).with(true)
       @paste.should_receive(:save).and_return(true)
-      Mailer.should_receive(:deliver_user_confirmation)
 
       do_post params
       response.should redirect_to(paste_url("1"))
